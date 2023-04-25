@@ -2,35 +2,27 @@
 
 **App**
 
-  **Jobly**
-  <!--  TODO: take companies/jobs state out - -->
-  state:
-  - companies: list of all company take objs
-  - jobs: list of all jobs
+  **NavBar**
 
-    **NavBar**
+  **RoutesList**
 
     **LandingPage**
 
-    **CompaniesPage**
-    <!-- TODO: let these pages hold companies state when visited -->
+    **CompanyList**
+    -state: companyList
+    -state: filter
 
-      **SearchBar**
+      functions:
+      - handleSearch - updates filter in state via setFilter
+
+      **SearchForm**
       props:
-      - handleSearch - update companies in state
+      - handleSearch - update filter in state via setFilter
 
       state:
       - formData: search term
 
-      **CompaniesList**
-      state:
-      - companies: list of companies to show
-
-      functions:
-      - handleSearch - updates companies in state
-
-    <!-- TODO: not being rendered by CompaniesList - comes from Jobly -->
-    **Company**
+    **CompanyCard**
      state:
     - currCompany
     - jobs: array of jobs listed by company - from api
@@ -43,23 +35,25 @@
             props:
             - job: job data
 
-    **JobsPage**
-    <!-- TODO: jobs state living in 3 places - keep it here -->
+    **JobsList**
     state:
     - jobs: list of jobs
-    <!-- TODO: consider piece of state for filter eg. "watson" -->
+    - filter: jobs eg. "watson"
 
-      **SearchBar**
+      **SearchForm**
       props:
-      - handleSearch - update filter in state
+      - handleSearch - update filter in state via setFilter
 
       state:
       - formData: search term
 
-      **JobsList**
+      **JobsCardList**
       props:
       - jobs: list of jobs to show
 
+          **Job**
+            props:
+            - job: job data
 
 
 
