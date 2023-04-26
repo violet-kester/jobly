@@ -43,11 +43,20 @@ function CompanyList() {
 
   /** Search db for company by handle */
   async function handleCompanySearch(term) {
-    const result = await JoblyApi.getCompaniesByName(term);
-    setCompanies({
-      data: result,
-      isLoading: false,
-    });
+    if (term.trim() !== '') {
+      const result = await JoblyApi.getCompaniesByName(term);
+      console.log('I am result', result);
+      setCompanies({
+        data: result,
+        isLoading: false,
+      });
+    } else {
+      const result = await JoblyApi.getCompanies();
+      setCompanies({
+        data: result,
+        isLoading: false,
+      });
+    }
   }
 
   if (companies.isLoading) {
