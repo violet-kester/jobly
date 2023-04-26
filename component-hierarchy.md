@@ -6,7 +6,7 @@
 
   **RoutesList**
 
-    **LandingPage**
+    **Homepage**
 
     **CompanyList**
     -state: companyList
@@ -22,12 +22,14 @@
       state:
       - formData: search term
 
-    **CompanyCard**
-     state:
-    - currCompany
-    - jobs: array of jobs listed by company - from api
+      **CompanyCard**
+      prop:
+      - currCompany
 
-          **JobsList**
+
+    **CompanyDetail**
+
+          **JobsCardList**
           props:
           - jobs: list of jobs to show
 
