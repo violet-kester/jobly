@@ -16,7 +16,6 @@ import JoblyApi from "./api";
       "numEmployees": 245,
       "logoUrl": "/logos/logo3.png"
     }...]
- * - filter: ''
  *
  * Func: handleSearch
  *
@@ -24,34 +23,39 @@ import JoblyApi from "./api";
  */
 
 function CompanyList() {
-  const [companies, setCompanies] = useState([]);
-  const [filter, setFilter] = useState('');
+  const [companies, setCompanies] = useState({
+    data: null,
+    isLoading: true
+  });
 
   useEffect(function getCompaniesFromAPI() {
-      async function waitForCompanies() {
-        const result = await JoblyApi.getCompanies();
-        setCompanies(result);
-      }
-      waitForCompanies();
-    }, [filter]);
+    async function waitForCompanies() {
+      const result = await JoblyApi.getCompanies();
+      setCompanies({
+        data: result,
+        isLoading: false,
+      });
+    }
+    waitForCompanies();
+  }, []);
 
-  async function handleSearch(formData) {
-    console.log('I am the formData in handleSearch', formData)
+  async function handleCompanySearch(formData) {
     const result = await JoblyApi.getCompaniesByName(formData);
-    console.log('I am the result', result);
-    setCompanies(result);
+    setCompanies({
+      data: result,
+      isLoading: false,
+    });
   }
 
-  if (filter.length > 0) {
-    console.log('I am the filter in the conditional', filter);
-    return <i>Loading companies...</i>
+  if (companies.isLoading) {
+    return <i>Loading companies...</i>;
   }
 
   return (
     <div className='CompanyList'>
 
-      <SearchForm handleSearch={handleSearch} />
-      {companies.map((company) => {
+      <SearchForm handleSearch={handleCompanySearch} message="Search Companies!" />
+      {companies.data.map((company) => {
         return <CompanyCard key={company.handle} company={company} />;
       })}
     </div>

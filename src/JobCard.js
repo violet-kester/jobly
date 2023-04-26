@@ -6,7 +6,9 @@
 				"id": 7,
 				"title": "Technical brewer",
 				"salary": 157000,
-				"equity": "0"
+				"equity": "0",
+				"companyHandle": "watson-davis",
+				"companyName": "Watson-Davis"
 			},
 		}
  *
@@ -16,13 +18,17 @@
  */
 
 
-function JobCard({job}) {
+function JobCard({ job }) {
 
-  return (
-    <div className="JobCard" >
-      <p>I am a job!</p>
-    </div>
-  )
+	return (
+		<div className="JobCard" >
+			<h3>{job.title}</h3>
+			<p>{job.companyName}</p>
+			<br/>
+			<p>Salary: {job.salary}</p>
+			<p>Equity: {job.equity}</p>
+		</div>
+	);
 }
 
 export default JobCard;

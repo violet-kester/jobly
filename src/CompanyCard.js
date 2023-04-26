@@ -23,9 +23,12 @@ function CompanyCard({ company }) {
 		<div className="CompanyCard"  >
     <Link to={`/companies/${company.handle}`}>
 			{company.logoUrl &&
-				<img className="CompanyCard-logo" src={company.logoUrl} alt={`${company.name} logo`} />
+				<img
+				className="CompanyCard-logo"
+				src={company.logoUrl}
+				alt={`${company.name} logo`} />
 			}
-			<h6 className="CompanyCard-name">{company.name}</h6>
+			<h3 className="CompanyCard-name">{company.name}</h3>
 			<p>{company.description}</p>
       </Link>
 		</div>

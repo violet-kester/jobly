@@ -1,5 +1,7 @@
 import SearchForm from "./SearchForm";
 import JobCardList from "./JobCardList";
+import JoblyApi from "./api";
+import { useState, useEffect } from "react";
 
 /** JobList for information on all jobs
  *
@@ -7,7 +9,7 @@ import JobCardList from "./JobCardList";
  *
  *
  * State:  {
-	  - jobs: [
+		- jobs: [
 		{
 			"id": 1,
 			"title": "Conservator, furniture",
@@ -16,21 +18,46 @@ import JobCardList from "./JobCardList";
 			"companyHandle": "watson-davis",
 			"companyName": "Watson-Davis"
 		} ... ]
-    - filter: ''
  *
  * JobList -> JobCardList
  */
 
 function JobList() {
+	const [jobs, setJobs] = useState({
+		data: null,
+		isLoading: true
+	});
 
-   // Make a AJAX request to get all jobs
-   const jobs = [1,2,3];
-  return (
-    <div className='JobList'>
-      <SearchForm />
-      <JobCardList jobs={jobs}/>
-    </div>
-  );
+	useEffect(function getJobsFromAPI() {
+		async function waitForJobs() {
+			const result = await JoblyApi.getJobs();
+			setJobs({
+				data: result,
+				isLoading: false,
+			});
+		}
+		waitForJobs();
+	}, []);
+
+	async function handleJobSearch(formData) {
+		const result = await JoblyApi.getJobsByTitle(formData);
+		setJobs({
+			data: result,
+			isLoading: false,
+		});
+	}
+
+	if (jobs.isLoading) {
+		return <i>Loading companies...</i>;
+	}
+
+	console.log("loaded jobs in JobList", jobs);
+	return (
+		<div className='JobList'>
+			<SearchForm handleSearch={handleJobSearch} message="Search Jobs!" />
+			<JobCardList jobs={jobs.data} />
+		</div>
+	);
 }
 
 export default JobList;

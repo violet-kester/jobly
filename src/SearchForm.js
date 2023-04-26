@@ -3,7 +3,9 @@ import { useState } from 'react';
 
 /** SearchForm.
  *
- * Props: handleSearch
+ * Props:
+ * - handleSearch
+ * - message
  *
  * State: formData
  *
@@ -12,9 +14,8 @@ import { useState } from 'react';
 
 
 
-function SearchForm({handleSearch}) {
-  const [formData, setFormData] = useState({input: 'I am a form', isLoading: true});
-
+function SearchForm({handleSearch, message}) {
+  const [formData, setFormData] = useState({input: 'I am a form'});
 
   function handleChange(evt) {
     // const fieldName = evt.target.name;
@@ -30,10 +31,8 @@ function SearchForm({handleSearch}) {
   function handleSubmit(evt) {
     evt.preventDefault();
     handleSearch(formData.input);
-    setFormData({input: 'I am a form', isLoading: true});
+    setFormData({input: 'I am a form'});
   }
-
-
 
   return (
     <div>
@@ -46,7 +45,7 @@ function SearchForm({handleSearch}) {
         <input
           className='SearchForm-submit'
           type='submit'
-          value='Search for Company!'>
+          value={message}>
         </input>
       </form>
     </div>
