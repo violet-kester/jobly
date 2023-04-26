@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import JobCardList from './JobCardList';
 import JoblyApi from './api';
+import { NavLink, Link } from "react-router-dom";
 
 /** CompanyDetail for details and jobs from a single company.
 
@@ -26,32 +27,28 @@ import JoblyApi from './api';
 // 		}...}
 
 function CompanyDetail() {
-  const companyHandle = useParams();
-  const [company, setCompany] = useState({
+  const { handle } = useParams();
+  const [companyResult, setCompanyResult] = useState({
     data: null,
     isLoading: true
   });
 
-  console.log("CompanyDetail", company.data);
-  console.log("CompanyDetail handle", companyHandle);
-
-
-
-  useEffect(function getCompanyFromAPI() {
+  /** Gets company from API on mount and on handle change */
+  useEffect(function getCompanyFromAPIOnMount() {
     async function waitForCompany() {
-      const result = await JoblyApi.getCompany(companyHandle.name);
-      setCompany({data: result, isLoading: false});
+      const result = await JoblyApi.getCompany(handle);
+      setCompanyResult({data: result, isLoading: false});
     }
     waitForCompany();
-  }, []);
+  }, [handle]);
 
-  if (company.isLoading) return <i>Loading company...</i>
+  if (companyResult.isLoading) return <i>Loading company...</i>
 
   return (
     <div className='CompanyDetail'>
-      <h2>{company.data.name}</h2>
-      <p>{company.data.description}</p>
-      <JobCardList jobs={company.data.jobs}/>
+      <h2>{companyResult.data.name}</h2>
+      <p>{companyResult.data.description}</p>
+      <JobCardList jobs={companyResult.data.jobs}/>
     </div>
   );
 }

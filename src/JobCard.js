@@ -1,3 +1,5 @@
+import './JobCard.css'
+
 /** JobCard for information on a single job
  *
  * Props:
@@ -22,10 +24,10 @@ function JobCard({ job }) {
 
 	return (
 		<div className="JobCard" >
-			<h3>{job.title}</h3>
-			<p>{job.companyName}</p>
+			<h3 className='JobCard-title'>{job.title}</h3>
+			{job.companyName && <p>Company: {job.companyName}</p>}
 			<br/>
-			<p>Salary: {job.salary}</p>
+			<p>Salary: {Number(job.salary).toLocaleString()}</p>
 			<p>Equity: {job.equity}</p>
 		</div>
 	);

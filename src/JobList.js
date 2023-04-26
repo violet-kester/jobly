@@ -28,6 +28,7 @@ function JobList() {
 		isLoading: true
 	});
 
+  /** Show all jobs on initial render */
 	useEffect(function getJobsFromAPI() {
 		async function waitForJobs() {
 			const result = await JoblyApi.getJobs();
@@ -39,8 +40,9 @@ function JobList() {
 		waitForJobs();
 	}, []);
 
-	async function handleJobSearch(formData) {
-		const result = await JoblyApi.getJobsByTitle(formData);
+  /** Search db for job by title */
+	async function handleJobSearch(term) {
+		const result = await JoblyApi.getJobsByTitle(term);
 		setJobs({
 			data: result,
 			isLoading: false,
@@ -51,7 +53,6 @@ function JobList() {
 		return <i>Loading companies...</i>;
 	}
 
-	console.log("loaded jobs in JobList", jobs);
 	return (
 		<div className='JobList'>
 			<SearchForm handleSearch={handleJobSearch} message="Search Jobs!" />

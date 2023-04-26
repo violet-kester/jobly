@@ -14,24 +14,24 @@ import { useState } from 'react';
 
 
 
-function SearchForm({handleSearch, message}) {
-  const [formData, setFormData] = useState({input: 'I am a form'});
+function SearchForm({ handleSearch, message }) {
+  const [formData, setFormData] = useState({ input: '' });
 
+  /** Detects change in form input, and updates formData */
   function handleChange(evt) {
-    // const fieldName = evt.target.name;
     const value = evt.target.value;
 
     setFormData(currData => {
       currData.input = value;
-      // currData.isLoading =  false;
-      return {...currData};
+      return { ...currData };
     });
   }
 
-  function handleSubmit(evt) {
+  /** Calls handleSearch in parent component, and clears formData*/
+  async function handleSubmit(evt) {
     evt.preventDefault();
-    handleSearch(formData.input);
-    setFormData({input: 'I am a form'});
+    await handleSearch(formData.input);
+    // setFormData({ input: '' });
   }
 
   return (
@@ -40,7 +40,8 @@ function SearchForm({handleSearch, message}) {
         <input
           name='SearchForm-input'
           onChange={handleChange}
-          placeholder="Search">
+          placeholder="Search"
+          value={formData.input}>
         </input>
         <input
           className='SearchForm-submit'
@@ -49,7 +50,7 @@ function SearchForm({handleSearch, message}) {
         </input>
       </form>
     </div>
-  )
+  );
 }
 
 export default SearchForm;

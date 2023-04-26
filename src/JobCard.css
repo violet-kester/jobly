@@ -1,0 +1,9 @@
+.JobCard {
+    border: 3px solid lavender;
+    color: violet;
+}
+
+.JobCard-title {
+    color: palevioletred;
+}
+
