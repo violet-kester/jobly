@@ -1,6 +1,7 @@
 import SearchForm from './SearchForm';
-import {useState} from "react";
+import { useEffect, useState } from "react";
 import CompanyCard from './CompanyCard';
+import JoblyApi from "./api";
 
 
 /** CompanyList that shows companies
@@ -9,12 +10,12 @@ import CompanyCard from './CompanyCard';
  *
  * State:
  * - companies 	[{
-			"handle": "anderson-arias-morrow",
-			"name": "Anderson, Arias and Morrow",
-			"description": "Somebody program how I. Face give away discussion view act inside. Your official relationship administration here.",
-			"numEmployees": 245,
-			"logoUrl": "/logos/logo3.png"
-		}...]
+      "handle": "anderson-arias-morrow",
+      "name": "Anderson, Arias and Morrow",
+      "description": "Somebody program how I. Face give away discussion view act inside. Your official relationship administration here.",
+      "numEmployees": 245,
+      "logoUrl": "/logos/logo3.png"
+    }...]
  * - filter: ''
  *
  * Func: handleSearch
@@ -23,16 +24,23 @@ import CompanyCard from './CompanyCard';
  */
 
 function CompanyList() {
-  const [companies, setCompanies] = useState([1,2,3]);
-  // Function to get all of the companies
+  const [companies, setCompanies] = useState([]);
+
+  useEffect(function getCompaniesFromAPI() {
+    async function waitForCompanies() {
+      const result = await JoblyApi.getCompanies();
+      setCompanies(result);
+    }
+    waitForCompanies();
+  });
 
   return (
     <div className='CompanyList'>
 
-      {companies.map((company) => {
-        return <CompanyCard company={company}/>
-      })}
       <SearchForm />
+      {companies.map((company) => {
+        return <CompanyCard company={company} />;
+      })}
     </div>
   );
 }

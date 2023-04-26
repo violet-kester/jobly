@@ -1,4 +1,7 @@
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import JobCardList from './JobCardList';
+import JoblyApi from './api';
 
 /** CompanyDetail for details and jobs from a single company.
 
@@ -23,12 +26,32 @@ import JobCardList from './JobCardList';
 // 		}...}
 
 function CompanyDetail() {
+  const companyHandle = useParams();
+  const [company, setCompany] = useState({
+    data: null,
+    isLoading: true
+  });
 
-  // Make a AJAX request to get all jobs from a given company
-  const jobs = [1,2,3];
+  console.log("CompanyDetail", company.data);
+  console.log("CompanyDetail handle", companyHandle);
+
+
+
+  useEffect(function getCompanyFromAPI() {
+    async function waitForCompany() {
+      const result = await JoblyApi.getCompany(companyHandle.name);
+      setCompany({data: result, isLoading: false});
+    }
+    waitForCompany();
+  });
+
+  if (company.isLoading) return <i>Loading company...</i>
+
   return (
     <div className='CompanyDetail'>
-      <JobCardList jobs={jobs}/>
+      <h2>{company.data.name}</h2>
+      <p>{company.data.description}</p>
+      <JobCardList jobs={company.data.jobs}/>
     </div>
   );
 }
