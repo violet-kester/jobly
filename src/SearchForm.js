@@ -1,7 +1,15 @@
+/** SearchForm.
+ *
+ * Props: handleSearch
+ *
+ * State: formData
+ *
+ * [CompanyList, JobList] -> SearchForm
+ */
 
 
 
-function SearchForm() {
+function SearchForm({handleSearch}) {
 
   return (
     <div>

@@ -1,4 +1,11 @@
-
+/** Homepage.
+ *
+ * Props: N/A
+ *
+ * State: N/A
+ *
+ * RoutesList -> Homepage
+ */
 
 function Homepage() {
 

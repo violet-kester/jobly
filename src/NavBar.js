@@ -1,18 +1,29 @@
 import { NavLink, Link } from "react-router-dom";
 // import "./NavBar.css";
 
+/** NavBar with links to main routes.
+ *
+ * Props: N/A
+ *
+ * State: N/A
+ *
+ * App -> NavBar
+ *
+ * TODO: navLink rather than link for styling
+ */
+
 function NavBar() {
   return (
     <nav className="NavBar">
-      <Link to="/">
+      <NavLink to="/">
         Jobly
-      </Link>
-      <Link to="/companies">
+      </NavLink>
+      <NavLink to="/companies">
         Companies
-      </Link>
-      <Link to="/jobs">
+      </NavLink>
+      <NavLink to="/jobs">
         Jobs
-      </Link>
+      </NavLink>
     </nav>
   );
 }

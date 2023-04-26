@@ -52,7 +52,7 @@ class JoblyApi {
     return res.companies;
   }
   /** Get details on companies from term */
-  static async searchCompaniesByName(term) {
+  static async getCompaniesByName(term) {
     let res = await this.request(`companies/?nameLike=${term}`);
     return res.companies;
   }
@@ -70,7 +70,7 @@ class JoblyApi {
   }
 
   /** Get details on Jobs by title */
-  static async searchJobsByTitle(term) {
+  static async getJobsByTitle(term) {
     let res = await this.request(`jobs/?title=${term}`);
     return res.jobs;
   }

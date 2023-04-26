@@ -1,5 +1,26 @@
 import JobCardList from './JobCardList';
 
+/** CompanyDetail for details and jobs from a single company.
+
+ * Props: N/A
+ * State: N/A
+ *
+ * RoutesList -> CompanyDetail
+ */
+
+//  "company": {
+// 	"handle": "anderson-arias-morrow",
+// 	"name": "Anderson, Arias and Morrow",
+// 	"description": "Somebody program how I. Face give away discussion view act inside. Your official relationship administration here.",
+// 	"numEmployees": 245,
+// 	"logoUrl": "/logos/logo3.png",
+// 	"jobs": [
+// 		{
+// 			"id": 7,
+// 			"title": "Technical brewer",
+// 			"salary": 157000,
+// 			"equity": "0"
+// 		}...}
 
 function CompanyDetail() {
 
