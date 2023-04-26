@@ -19,7 +19,7 @@
 function JobCard({job}) {
 
   return (
-    <div className="JobCard">
+    <div className="JobCard" >
       <p>I am a job!</p>
     </div>
   )

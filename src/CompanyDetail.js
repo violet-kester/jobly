@@ -43,7 +43,7 @@ function CompanyDetail() {
       setCompany({data: result, isLoading: false});
     }
     waitForCompany();
-  });
+  }, []);
 
   if (company.isLoading) return <i>Loading company...</i>
 

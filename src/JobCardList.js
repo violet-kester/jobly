@@ -23,7 +23,7 @@ function JobCardList({ jobs }) {
   return (
     <div className='JobCardList'>
       {jobs.map((job) => {
-        return <JobCard job={job} />;
+        return <JobCard key={job.id} job={job} />;
       })}
     </div>
   );

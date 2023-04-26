@@ -8,8 +8,6 @@ import { NavLink, Link } from "react-router-dom";
  * State: N/A
  *
  * App -> NavBar
- *
- * TODO: navLink rather than link for styling
  */
 
 function NavBar() {

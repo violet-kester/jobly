@@ -1,4 +1,5 @@
 import "./CompanyCard.css";
+import { Link } from 'react-router-dom';
 
 /** CompanyCard for details on a single company
  *
@@ -19,12 +20,14 @@ import "./CompanyCard.css";
 function CompanyCard({ company }) {
 
 	return (
-		<div className="CompanyCard">
+		<div className="CompanyCard"  >
+    <Link to={`/companies/${company.handle}`}>
 			{company.logoUrl &&
 				<img className="CompanyCard-logo" src={company.logoUrl} alt={`${company.name} logo`} />
 			}
 			<h6 className="CompanyCard-name">{company.name}</h6>
 			<p>{company.description}</p>
+      </Link>
 		</div>
 	);
 }
