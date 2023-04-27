@@ -51,6 +51,13 @@ function App() {
     login(user.username, user.password);
   }
 
+  /** User update */
+  /** user: { username, password, firstName, lastName, email } */
+  async function update(user) {
+    const response = await JoblyApi.registerUser(user);
+    login(user.username, user.password);
+  }
+
   const defaultUser = {
     username: '',
     isLoggedIn: false,
