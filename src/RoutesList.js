@@ -7,8 +7,11 @@ import Homepage from './Homepage';
 import CompanyList from './CompanyList';
 import CompanyDetail from './CompanyDetail';
 import JobList from './JobList';
+import LoginForm from './LoginForm';
+import SignupForm from './SignupForm';
+import ProfileForm from './ProfileForm';
 
-/** RoutesList for routing .
+/** RoutesList for routing . TODO: UPDATE ME
  *
  * Props: N/A
  *
@@ -42,17 +45,17 @@ function RoutesList({login, signup, update}) {
 
       <Route
         path="/login"
-        element={<Login handleSave={login} />}
+        element={<LoginForm login={login} />}
       />
 
       <Route
         path="/signup"
-        element={<Signup handleSave={signup} />}
+        element={<SignupForm signup={signup} />}
       />
 
       <Route
         path="/profile"
-        element={<Profile handleSave={update} />}
+        element={<ProfileForm update={update} />}
       />
 
       <Route

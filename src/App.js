@@ -17,6 +17,12 @@ import JoblyApi from './api';
 
 function App() {
 
+
+  const defaultUser = {
+    username: '',
+    isLoggedIn: false,
+    isAdmin: false
+  };
   const [currentUser, setCurrentUser] = useState(defaultUser);
   // user: {
   //   applied: [],
@@ -31,12 +37,16 @@ function App() {
 
   /** User login */
   async function login(username, password) {
+    // console.log('I am in login :)', username, password);
     //authenticate user and set token
     const response = await JoblyApi.loginUser(username, password);
-    setToken(response.token);
+    // console.log('i am the response', response);
+    setToken(response);
     // get user details and set current user
     const user = await JoblyApi.getUser(username);
+    // console.log('I am the user', user);
     setCurrentUser(user);
+    // console.log('I am currentUser', currentUser);
   }
 
   /** User logout */
@@ -58,11 +68,7 @@ function App() {
     login(user.username, user.password);
   }
 
-  const defaultUser = {
-    username: '',
-    isLoggedIn: false,
-    isAdmin: false
-  };
+
 
   return (
     <div className="App">
@@ -76,7 +82,7 @@ function App() {
       }}>
         <BrowserRouter>
           <NavBar logout={logout} />
-          <RoutesList />
+          <RoutesList login={login} signup={signup} update={update}/>
         </BrowserRouter>
       </userContext.Provider>
     </div>

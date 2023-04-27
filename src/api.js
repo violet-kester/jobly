@@ -82,7 +82,7 @@ class JoblyApi {
       { username: username, password: password },
       "post"
     );
-    return res.user;
+    return res.token;
   }
 
   /** Register user - returns a token */
