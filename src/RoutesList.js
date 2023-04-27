@@ -17,7 +17,7 @@ import JobList from './JobList';
  * App -> RoutesList -> [Homepage, CompanyList, CompanyDetail, JobList]
  */
 
-function RoutesList() {
+function RoutesList({login, signup, update}) {
   return (
     <Routes>
       <Route
@@ -39,6 +39,22 @@ function RoutesList() {
         path="/jobs"
         element={<JobList />}
       />
+
+      <Route
+        path="/login"
+        element={<Login handleSave={login} />}
+      />
+
+      <Route
+        path="/signup"
+        element={<Signup handleSave={signup} />}
+      />
+
+      <Route
+        path="/profile"
+        element={<Profile handleSave={update} />}
+      />
+
       <Route
         path="/*"
         element={<Navigate to={'/'} />}
