@@ -49,28 +49,29 @@ function JobList() {
     //   });
     // }}
   }, []);
-  console.log(jobs);
 
   /** Search db for job by title */
   async function handleJobSearch(term) {
+
     if (term.trim() !== '') {
       const result = await JoblyApi.getJobsByTitle(term);
-      console.log(result);
+
+      // if no results, set error msg
       if (result.length === 0) {
-        console.log('I have a length of zero :)');
         setJobs({
           data: null,
-          isLoading: true,
+          isLoading: false,
           errors: 'Sorry, no results were found'
         });
-      };
+      } else {
+        setJobs({
+          data: result,
+          isLoading: false,
+          errors: null
+        });
+      }
 
-      setJobs({
-        data: result,
-        isLoading: false,
-        errors: null
-      });
-
+      // if no search term, return all jobs
     } else {
       const result = await JoblyApi.getJobs();
       setJobs({
@@ -88,7 +89,10 @@ function JobList() {
   return (
     <div className='JobList'>
       <SearchForm handleSearch={handleJobSearch} message="Search Jobs!" />
-      {jobs.errors !== null ? 'Sorry, no results were found' : <JobCardList jobs={jobs.data} />}
+      {jobs.errors !== null
+        ? jobs.errors
+        : <JobCardList jobs={jobs.data} />
+      }
     </div>
   );
 }

@@ -13,7 +13,7 @@ import { NavLink, Link } from "react-router-dom";
  * - companies {data:
       "handle": "anderson-arias-morrow",
       "name": "Anderson, Arias and Morrow",
-      "description": "Somebody program how I. Face give away discussion view act inside. Your official relationship administration here.",
+      "description": "Somebody program how I...",
       "numEmployees": 245,
       "logoUrl": "/logos/logo3.png"
     }..., isLoading: false]
@@ -26,7 +26,8 @@ import { NavLink, Link } from "react-router-dom";
 function CompanyList() {
   const [companies, setCompanies] = useState({
     data: null,
-    isLoading: true
+    isLoading: true,
+    errors: null
   });
 
   /** Shows all companies on initial render */
@@ -36,6 +37,7 @@ function CompanyList() {
       setCompanies({
         data: result,
         isLoading: false,
+        errors: null
       });
     }
     waitForCompanies();
@@ -43,21 +45,40 @@ function CompanyList() {
 
   /** Search db for company by handle */
   async function handleCompanySearch(term) {
+
+    // if search term provided, get by name
     if (term.trim() !== '') {
       const result = await JoblyApi.getCompaniesByName(term);
-      console.log('I am result', result);
-      setCompanies({
-        data: result,
-        isLoading: false,
-      });
+
+      // if no results, set error msg
+      if (result.length === 0) {
+        console.log("no search results");
+        setCompanies({
+          data: "bad data",
+          isLoading: false,
+          errors: 'Sorry, no results were found'
+        });
+      } else {
+        // if results, update state
+        setCompanies({
+          data: result,
+          isLoading: false,
+          errors: null
+        });
+      }
+
+    // if no search term, return all companies
     } else {
       const result = await JoblyApi.getCompanies();
       setCompanies({
         data: result,
         isLoading: false,
+        errors: null
       });
     }
   }
+
+
 
   if (companies.isLoading) {
     return <i>Loading companies...</i>;
@@ -68,9 +89,12 @@ function CompanyList() {
 
       <SearchForm handleSearch={handleCompanySearch} message="Search Companies!" />
 
-      {companies.data.map((company) => {
-        return <CompanyCard key={company.handle} company={company} />;
-      })}
+      {companies.errors !== null
+        ? companies.errors
+        : companies.data.map((company) => {
+          return <CompanyCard key={company.handle} company={company} />;
+        })
+      }
     </div>
   );
 }
