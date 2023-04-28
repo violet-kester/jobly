@@ -1,6 +1,11 @@
 .CompanyCard {
     position: relative;
-    border: 3px solid lavender;
+    /* border: 3px solid lavender; */
+    padding: 10px;
+    max-width: 90%;
+    border-radius: 15px;
+    margin: 10px auto;
+    background-color: white;
 }
 .CompanyCard a {
     text-decoration: none;
@@ -9,8 +14,8 @@
 
 .CompanyCard-logo {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 10px;
+    right: 10px;
     max-width: 50px;
     max-height: 50px;
 }

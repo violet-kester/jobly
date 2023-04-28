@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import userContext from "./userContext";
-// import "./NavBar.css";
+import "./NavBar.css";
 
 /** NavBar with links to main routes.
  *
@@ -18,28 +18,32 @@ function NavBar() {
 
   return (
     <nav className="NavBar">
-      <NavLink to="/">
-        Jobly
-      </NavLink>
-      <NavLink to="/companies">
-        Companies
-      </NavLink>
-      <NavLink to="/jobs">
-        Jobs
-      </NavLink>
-      {!user.user.isLoggedIn &&
-        <NavLink to="/login">
-          Login
+      <div className="NavBar-logo">
+        <NavLink to="/">
+          Jobly
         </NavLink>
-      }
-      {!user.user.isLoggedIn &&
-        <NavLink to="/signup">
-          Signup
+      </div>
+      <div className="NavBar-links">
+        <NavLink to="/companies">
+          Companies
         </NavLink>
-      }
-      <NavLink to="/profile">
-        Profile
-      </NavLink>
+        <NavLink to="/jobs">
+          Jobs
+        </NavLink>
+        {!user.user.isLoggedIn &&
+          <NavLink to="/login">
+            Login
+          </NavLink>
+        }
+        {!user.user.isLoggedIn &&
+          <NavLink to="/signup">
+            Signup
+          </NavLink>
+        }
+        <NavLink to="/profile">
+          Profile
+        </NavLink>
+      </div>
     </nav>
   );
 }
