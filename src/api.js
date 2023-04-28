@@ -82,18 +82,26 @@ class JoblyApi {
       { username: username, password: password },
       "post"
     );
+    this.token = res.token;
     return res.token;
   }
 
   /** Register user - returns a token */
   /** user: { username, password, firstName, lastName, email } */
   static async registerUser(user) {
+    console.log('user in register', user)
     let res = await this.request(
       'auth/register/',
-      { user },
+      {
+        username: user.username,
+        password: user.password,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
+      },
       "post"
     );
-    return res.user;
+    return res;
   }
 
   /** Get details on a user by username. */

@@ -45,25 +45,28 @@ function App() {
     const response = await JoblyApi.loginUser(username, password);
     // console.log('i am the response', response);
     setToken(response);
+    const user = await JoblyApi.getUser(username, password);
+    setCurrentUser(user => ({ ...user, isLoggedIn: true }));
+
   }
 
-  useEffect(function setUserOnLogin() {
-    console.debug("setUserOnLogin");
-    async function fetchUser() {
-      // get user details and set current user
+  // useEffect(function setUserOnLogin() {
+  //   console.debug("setUserOnLogin");
+  //   async function fetchUser() {
+  //     // get user details and set current user
+  //     // TODO: move these inside login: 55, 60
+  //     const decodedUser = jwt_decode(token);
 
-      const decodedUser = jwt_decode(token);
-
-      const user = await JoblyApi.getUser(decodedUser.username);
-      // console.log('I am the user', user);
-      // console.log("before setCurrentUser", currentUser);
-      setCurrentUser(currUser => ({ ...user, isLoggedIn: true }));
-      // console.log('I am currentUser in effect', currentUser);
-    }
-    if (token) {
-      fetchUser();
-    }
-  }, [token]);
+  //     const user = await JoblyApi.getUser(decodedUser.username);
+  //     // console.log('I am the user', user);
+  //     // console.log("before setCurrentUser", currentUser);
+  //     setCurrentUser(currUser => ({ ...user, isLoggedIn: true }));
+  //     // console.log('I am currentUser in effect', currentUser);
+  //   }
+  //   if (token) {
+  //     fetchUser();
+  //   }
+  // }, [token]);
 
   /** User logout */
   function logout() {
@@ -73,7 +76,9 @@ function App() {
   /** User signup */
   /** user: { username, password, firstName, lastName, email } */
   async function signup(user) {
+    console.log('I am user in signup', user);
     const response = await JoblyApi.registerUser(user);
+    console.log(response, 'I am in signup', response);
     login(user.username, user.password);
   }
 

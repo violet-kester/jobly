@@ -17,6 +17,7 @@ function LoginForm({ login }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
+    //TODO: delete me
     setFormData(formData);
     // console.log('I am form data after setFormData', formData);
     await login(formData.username, formData.password);
