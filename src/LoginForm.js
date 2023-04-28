@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
  */
 
 function LoginForm({ login }) {
+  //TODO: move the initial state to a variable for concision
   const [formData, setFormData] = useState({ username: '', password: '', errors: null });
   const navigate = useNavigate();
 
@@ -42,6 +43,7 @@ function LoginForm({ login }) {
     <form className="LoginForm" onSubmit={handleSubmit}>
       <div className="LoginForm-div" key={'LoginForm-div'} >
         <div>
+          {/* {TODO: labels for inputs} */}
           <input
             id='LoginForm-username'
             key='username'
@@ -70,6 +72,7 @@ function LoginForm({ login }) {
       <input className='LoginForm-submit' type='submit' value='Log In!'>
       </input>
       <div className="LoginForm-error">
+        {/* Add conditional for displaying errors */}
         {formData.errors}
       </div>
     </form>

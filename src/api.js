@@ -78,6 +78,7 @@ class JoblyApi {
   static async loginUser(username, password) {
     let res = await this.request(
       'auth/token/',
+      //TODO: object shorthand {username, password}
       { username: username, password: password },
       "post"
     );
@@ -87,6 +88,7 @@ class JoblyApi {
 
   /** Register user - returns a token */
   /** user: { username, password, firstName, lastName, email } */
+  //TODO: before the object on 97, can destructure the input so it is easier to pass in later
   static async registerUser(user) {
     // console.log('user in register', user)
     let res = await this.request(

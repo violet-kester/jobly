@@ -14,9 +14,10 @@ import "./NavBar.css";
  */
 
 function NavBar({ logout }) {
+  //TODO: user could be destructured problem
   const user = useContext(userContext);
   // console.log("NavBar user=", user);
-
+//TODO: loggedin navLinks could be apart of the same check
   return (
     <nav className="NavBar">
       <div className="NavBar-logo">

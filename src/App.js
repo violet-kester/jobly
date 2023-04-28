@@ -1,7 +1,7 @@
 import './App.css';
 import RoutesList from './RoutesList';
 import { useState, useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { Navigate, useNavigate, Route } from 'react-router-dom';
 import NavBar from './NavBar';
 import userContext from "./userContext";
 import JoblyApi from './api';
@@ -38,6 +38,7 @@ function App() {
 
   const [currentUser, setCurrentUser] = useState(defaultUser);
   const [token, setToken] = useState(null);
+  const navigate = useNavigate();
 
   // console.log('App component rendered', currentUser);
 
@@ -51,6 +52,7 @@ function App() {
     setToken(response);
     const user = await JoblyApi.getUser(username, password);
     // console.log('I am user in login', user)
+    //TODO: don't need to use the cb pattern here because state is being overwritten
     setCurrentUser(currUser => ({ ...user, isLoggedIn: true }));
     // } catch (error) {
     //   console.log("error in app login", error[0]);
@@ -78,6 +80,10 @@ function App() {
   /** User logout */
   function logout() {
     setCurrentUser(defaultUser);
+    console.log('in logout after setCurrentUser', currentUser);
+    setToken('');
+    //TODO: we know this is wrong and why, but <Navigate to='/' /> wasnt working
+    navigate('/');
   }
 
   /** User signup */
@@ -86,9 +92,10 @@ function App() {
     // console.log('I am user in signup', user);
     const response = await JoblyApi.registerUser(user);
     // console.log(response, 'I am in signup', response);
+    //TODO: delete
     login(user.username, user.password);
   }
-
+  //TODO: makes sure this is updated to not be a lie
   /** User update */
   /** user: { username, password, firstName, lastName, email } */
   async function update(user) {
@@ -97,10 +104,9 @@ function App() {
   }
 
 
-
   return (
     <div className="App">
-      {/* // TODO: does it matter if Provider is in/outside of router? */}
+      {/* // TODO: does it matter if Provider is in/outside of router? ANSWER: irrelevant */}
       <userContext.Provider value={{
         user: {
           username: currentUser.username,
@@ -108,10 +114,8 @@ function App() {
           isAdmin: currentUser.isAdmin
         }
       }}>
-        <BrowserRouter>
           <NavBar logout={logout} />
           <RoutesList login={login} signup={signup} update={update} />
-        </BrowserRouter>
       </userContext.Provider>
     </div>
   );

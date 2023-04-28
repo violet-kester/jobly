@@ -7,11 +7,17 @@ import { useNavigate } from 'react-router-dom';
  * Props:
  * - signup: signup func to be called in parent
  *
- * State: formData
+ * State: formData {
+      username: '',
+      firstName: '',
+      lastName: '',
+      password: '',
+      email: ''
+    }
  *
  * RoutesList -> SignupForm
  */
-
+//TODO: initial state could be variable
 function SignupForm({ signup }) {
   const [formData, setFormData] = useState(
     {
@@ -33,7 +39,7 @@ function SignupForm({ signup }) {
       return { ...currData };
     });
   }
-
+  //TODO: docstrings for these and in loginForm
   async function handleSubmit(evt) {
     evt.preventDefault();
     try {
@@ -50,6 +56,7 @@ function SignupForm({ signup }) {
     <form className="SignupForm" onSubmit={handleSubmit}>
       <div className="SignupForm-div" key={'SignupForm-div'} >
         <div>
+          {/* Labels yo */}
           <input
             id='SignupForm-username'
             key='username'
@@ -114,7 +121,8 @@ function SignupForm({ signup }) {
       <input className='SignupForm-submit' type='submit' value='Sign up!'>
       </input>
 
-      <div className="LoginForm-error">
+      <div className="SignupForm-error">
+        {/* Conditional here too. Map these for formatting */}
         {formData.errors}
       </div>
     </form>
