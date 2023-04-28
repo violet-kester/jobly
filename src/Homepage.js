@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import userContext from "./userContext";
+import { Link } from "react-router-dom";
+import "./Homepage.css";
 
 /** Homepage.
  *
  * Props:
- * - login
- * - sigunup
+ * - login - login func to be called in parent
+ * - sigunup - signup func to be called in parent
  *
  * State: N/A
  *
@@ -23,8 +25,8 @@ function Homepage({ login, signup }) {
         <h2>Welcome back, {user.user.username}</h2>}
       {!user.user.isLoggedIn &&
         <div>
-          <button onClick={login}>Login</button>
-          <button onClick={signup}>Sign up</button>
+          <button><Link to="/login">Login</Link></button>
+          <button><Link to="/signup">Sign up</Link></button>
         </div>}
     </div>
   );

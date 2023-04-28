@@ -11,13 +11,25 @@ import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import ProfileForm from './ProfileForm';
 
-/** RoutesList for routing . TODO: UPDATE ME
+/** RoutesList for routing
  *
- * Props: N/A
+ * Props:
+ * - login: login func to be called in parent
+ * - signup: signup func to be called in parent
+ * - update: update func to be called in parent
  *
  * State: N/A
  *
- * App -> RoutesList -> [Homepage, CompanyList, CompanyDetail, JobList]
+ * App -> RoutesList -> [
+ *   Homepage,
+ *   CompanyList,
+ *   CompanyDetail,
+ *   JobList,
+ *   LoginForm,
+ *   SignupForm,
+ *   Profile
+ * ]
+ *
  */
 
 function RoutesList({login, signup, update}) {

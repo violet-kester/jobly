@@ -5,16 +5,17 @@ import "./NavBar.css";
 
 /** NavBar with links to main routes.
  *
- * Props: N/A
+ * Props:
+ * - logout: logout func to be called in parent
  *
  * State: N/A
  *
  * App -> NavBar
  */
 
-function NavBar() {
+function NavBar({ logout }) {
   const user = useContext(userContext);
-  console.log("NavBar user=", user);
+  // console.log("NavBar user=", user);
 
   return (
     <nav className="NavBar">
@@ -24,12 +25,16 @@ function NavBar() {
         </NavLink>
       </div>
       <div className="NavBar-links">
-        <NavLink to="/companies">
-          Companies
-        </NavLink>
-        <NavLink to="/jobs">
-          Jobs
-        </NavLink>
+        {user.user.isLoggedIn &&
+          <NavLink to="/companies">
+            Companies
+          </NavLink>
+        }
+        {user.user.isLoggedIn &&
+          <NavLink to="/jobs">
+            Jobs
+          </NavLink>
+        }
         {!user.user.isLoggedIn &&
           <NavLink to="/login">
             Login
@@ -40,9 +45,14 @@ function NavBar() {
             Signup
           </NavLink>
         }
-        <NavLink to="/profile">
-          Profile
-        </NavLink>
+        {user.user.isLoggedIn &&
+          <NavLink to="/profile">
+            Profile
+          </NavLink>
+        }
+        {user.user.isLoggedIn &&
+          <button onClick={logout}>Logout {user.user.username}</button>
+        }
       </div>
     </nav>
   );

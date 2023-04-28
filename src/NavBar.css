@@ -14,3 +14,11 @@
 .NavBar-links a {
     margin-left: 10px;
 }
+
+button {
+    border: none;
+    background-color: cornflowerblue;
+    padding: 7px;
+    border-radius: 5px;
+    margin-left: 10px;
+}

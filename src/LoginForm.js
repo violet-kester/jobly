@@ -1,8 +1,19 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
+/** SearchForm.
+ *
+ * Props:
+ * - login: login func to be called in parent
+ *
+ * State: formData
+ *
+ * RoutesList -> LoginForm
+ */
+
 function LoginForm({ login }) {
-  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [formData, setFormData] = useState({ username: '', password: '', errors: null });
   const navigate = useNavigate();
 
   function handleChange(evt) {
@@ -17,10 +28,14 @@ function LoginForm({ login }) {
 
   async function handleSubmit(evt) {
     evt.preventDefault();
-    setFormData(formData);
     // console.log('I am form data after setFormData', formData);
-    await login(formData.username, formData.password);
-    navigate("/");
+    try {
+      await login(formData.username, formData.password);
+      navigate("/");
+    } catch (error) {
+      console.log("error in loginform login", error);
+      setFormData(currData => ({ ...currData, errors: error }));
+    }
   }
 
   return (
@@ -53,8 +68,10 @@ function LoginForm({ login }) {
       </div>
 
       <input className='LoginForm-submit' type='submit' value='Log In!'>
-
       </input>
+      <div className="LoginForm-error">
+        {formData.errors}
+      </div>
     </form>
   );
 
