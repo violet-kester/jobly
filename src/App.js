@@ -37,19 +37,21 @@ function App() {
   };
 
   const [currentUser, setCurrentUser] = useState(defaultUser);
+  // TODO: could set default to localStorage token
   const [token, setToken] = useState(null);
   const navigate = useNavigate();
 
-  console.log('App component rendered', currentUser);
+  // console.log('App component rendered', currentUser);
 
   /** User login */
   async function login(username, password) {
     // try {
     // console.log('I am in login :)', username, password);
     //authenticate user and set token
-    const response = await JoblyApi.loginUser(username, password);
+    const token = await JoblyApi.loginUser(username, password);
     // console.log('i am the response', response);
-    setToken(response);
+    localStorage.setItem("token", token);
+    setToken(token);
     const user = await JoblyApi.getUser(username, password);
     // console.log('I am user in login', user)
     //TODO: don't need to use the cb pattern here because state is being overwritten
@@ -59,6 +61,24 @@ function App() {
     //   return <h2>error: error[0]</h2>;
     // }
   }
+
+  useEffect(function setLocalUserOnRefresh() {
+    // console.log("setUserOnLogin");
+    async function getLocalUser() {
+      const localToken = localStorage.getItem("token");
+      if (localToken) {
+        JoblyApi.token = localToken;
+        const decodedUser = jwt_decode(localToken);
+        // console.log("localToken", localToken);
+        // console.log("from useEffect jobly token", JoblyApi.token);
+        // console.log(decodedUser.username);
+        const localUser = await JoblyApi.getUser(decodedUser.username);
+        // console.log("localUser", localUser);
+        setCurrentUser({ ...localUser, isLoggedIn: true });
+      }
+    }
+    getLocalUser();
+  }, [token]);
 
   // useEffect(function setUserOnLogin() {
   //   console.debug("setUserOnLogin");
@@ -82,6 +102,7 @@ function App() {
     setCurrentUser(defaultUser);
     console.log('in logout after setCurrentUser', currentUser);
     setToken('');
+    localStorage.removeItem("token");
     //TODO: we know this is wrong and why, but <Navigate to='/' /> wasnt working
     navigate('/');
   }
@@ -91,7 +112,7 @@ function App() {
   async function signup(user) {
     console.log('I am user in signup', user);
     const token = await JoblyApi.registerUser(user);
-    console.log( 'I am in signup', token);
+    console.log('I am in signup', token);
 
     setToken(token);
     setCurrentUser(currUser => ({ ...user, isLoggedIn: true }));
@@ -108,7 +129,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* // TODO: does it matter if Provider is in/outside of router? ANSWER: irrelevant */}
       <userContext.Provider value={{
         user: {
           username: currentUser.username,
@@ -116,8 +136,8 @@ function App() {
           isAdmin: currentUser.isAdmin
         }
       }}>
-          <NavBar logout={logout} />
-          <RoutesList login={login} signup={signup} update={update} />
+        <NavBar logout={logout} />
+        <RoutesList login={login} signup={signup} update={update} />
       </userContext.Provider>
     </div>
   );

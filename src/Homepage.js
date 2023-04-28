@@ -5,25 +5,23 @@ import "./Homepage.css";
 
 /** Homepage.
  *
- * Props:
- * - login - login func to be called in parent
- * - sigunup - signup func to be called in parent
+ * Props: N/A
  *
  * State: N/A
  *
  * RoutesList -> Homepage
  */
 
-function Homepage({ login, signup }) {
+function Homepage() {
   const user = useContext(userContext);
 
   return (
     <div className='Homepage'>
       <h1>Jobly</h1>
       <h3>All the jobs in one, convenient place</h3>
-      {user.user.isLoggedIn &&
+      {localStorage.getItem("token") &&
         <h2>Welcome back, {user.user.username}</h2>}
-      {!user.user.isLoggedIn &&
+      {!localStorage.getItem("token") &&
         <div>
           <button><Link to="/login">Login</Link></button>
           <button><Link to="/signup">Sign up</Link></button>
