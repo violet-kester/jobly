@@ -22,6 +22,7 @@ function App() {
     username: '',
     isLoggedIn: false,
     isAdmin: false
+
   };
 
   const [currentUser, setCurrentUser] = useState(defaultUser);
@@ -46,8 +47,8 @@ function App() {
     // console.log('i am the response', response);
     setToken(response);
     const user = await JoblyApi.getUser(username, password);
-    setCurrentUser(user => ({ ...user, isLoggedIn: true }));
-
+    // console.log('I am user in login', user)
+    setCurrentUser(currUser => ({ ...user, isLoggedIn: true }));
   }
 
   // useEffect(function setUserOnLogin() {

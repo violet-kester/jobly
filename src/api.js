@@ -92,6 +92,7 @@ class JoblyApi {
     console.log('user in register', user)
     let res = await this.request(
       'auth/register/',
+      //TODO: ask about this...
       {
         username: user.username,
         password: user.password,

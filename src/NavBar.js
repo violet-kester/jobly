@@ -12,7 +12,7 @@ import userContext from "./userContext";
  * App -> NavBar
  */
 
-function NavBar() {
+function NavBar({logout}) {
   const user = useContext(userContext);
   console.log("NavBar user=", user);
 
@@ -40,6 +40,8 @@ function NavBar() {
       <NavLink to="/profile">
         Profile
       </NavLink>
+      {user.user.isLoggedIn &&
+      <button onClick={logout}>Logout {user.user.username} </button>}
     </nav>
   );
 }
