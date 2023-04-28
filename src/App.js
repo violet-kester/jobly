@@ -40,7 +40,7 @@ function App() {
   const [token, setToken] = useState(null);
   const navigate = useNavigate();
 
-  // console.log('App component rendered', currentUser);
+  console.log('App component rendered', currentUser);
 
   /** User login */
   async function login(username, password) {
@@ -89,11 +89,13 @@ function App() {
   /** User signup */
   /** user: { username, password, firstName, lastName, email } */
   async function signup(user) {
-    // console.log('I am user in signup', user);
-    const response = await JoblyApi.registerUser(user);
-    // console.log(response, 'I am in signup', response);
-    //TODO: delete
-    login(user.username, user.password);
+    console.log('I am user in signup', user);
+    const token = await JoblyApi.registerUser(user);
+    console.log( 'I am in signup', token);
+
+    setToken(token);
+    setCurrentUser(currUser => ({ ...user, isLoggedIn: true }));
+    navigate('/');
   }
   //TODO: makes sure this is updated to not be a lie
   /** User update */

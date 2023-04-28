@@ -103,6 +103,8 @@ class JoblyApi {
       },
       "post"
     );
+    this.token = res.token;
+    // console.log('this.token', this.token)
     return res;
   }
 
