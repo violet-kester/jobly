@@ -1,10 +1,11 @@
 import './App.css';
 import RoutesList from './RoutesList';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import NavBar from './NavBar';
 import userContext from "./userContext";
 import JoblyApi from './api';
+import jwt_decode from "jwt-decode";
 
 /** App for Jobly! TODO: UPDATE ME
  *
@@ -17,12 +18,12 @@ import JoblyApi from './api';
 
 function App() {
 
-
   const defaultUser = {
     username: '',
     isLoggedIn: false,
     isAdmin: false
   };
+
   const [currentUser, setCurrentUser] = useState(defaultUser);
   // user: {
   //   applied: [],
@@ -35,6 +36,8 @@ function App() {
   // }
   const [token, setToken] = useState(null);
 
+  console.log('App component rendered', currentUser);
+
   /** User login */
   async function login(username, password) {
     // console.log('I am in login :)', username, password);
@@ -42,12 +45,25 @@ function App() {
     const response = await JoblyApi.loginUser(username, password);
     // console.log('i am the response', response);
     setToken(response);
-    // get user details and set current user
-    const user = await JoblyApi.getUser(username);
-    // console.log('I am the user', user);
-    setCurrentUser(user);
-    // console.log('I am currentUser', currentUser);
   }
+
+  useEffect(function setUserOnLogin() {
+    console.debug("setUserOnLogin");
+    async function fetchUser() {
+      // get user details and set current user
+
+      const decodedUser = jwt_decode(token);
+
+      const user = await JoblyApi.getUser(decodedUser.username);
+      // console.log('I am the user', user);
+      // console.log("before setCurrentUser", currentUser);
+      setCurrentUser(currUser => ({ ...user, isLoggedIn: true }));
+      // console.log('I am currentUser in effect', currentUser);
+    }
+    if (token) {
+      fetchUser();
+    }
+  }, [token]);
 
   /** User logout */
   function logout() {
@@ -82,7 +98,7 @@ function App() {
       }}>
         <BrowserRouter>
           <NavBar logout={logout} />
-          <RoutesList login={login} signup={signup} update={update}/>
+          <RoutesList login={login} signup={signup} update={update} />
         </BrowserRouter>
       </userContext.Provider>
     </div>
