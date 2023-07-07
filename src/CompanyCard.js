@@ -1,16 +1,19 @@
 import "./CompanyCard.css";
 import { Link } from 'react-router-dom';
 
-/** CompanyCard for details on a single company
+/** CompanyCard
+ *
+ * Card displaying details on a single company.
  *
  * Props:
- * -company {
-      "handle": "anderson-arias-morrow",
-      "name": "Anderson, Arias and Morrow",
-      "description": "Somebody program how I. Face give away discussion view act inside. Your official relationship administration here.",
-      "numEmployees": 245,
-      "logoUrl": "/logos/logo3.png",
-    }
+ * - company:
+ *   {
+ *     "handle": "anderson-arias-morrow",
+ *     "name": "Anderson, Arias and Morrow",
+ *     "description": "Somebody program how I. Face give away discussion view act inside. Your official relationship administration here.",
+ *     "numEmployees": 245,
+ *     "logoUrl": "/logos/logo3.png",
+ *   }
  *
  * State: N/A
  *
