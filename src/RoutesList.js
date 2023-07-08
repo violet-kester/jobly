@@ -65,10 +65,10 @@ function RoutesList({login, signup, update}) {
         element={<SignupForm signup={signup} />}
       />
 
-      <Route
+      {/* <Route
         path="/profile"
         element={<ProfileForm update={update} />}
-      />
+      /> */}
 
       <Route
         path="/*"
