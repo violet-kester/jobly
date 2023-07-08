@@ -1,11 +1,17 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { Navigate, useNavigate, Route } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import JoblyApi from './api';
+import userContext from "./userContext";
 import NavBar from './NavBar';
 import RoutesList from './RoutesList';
-import userContext from "./userContext";
+
+const DEFAULT_USER = {
+  username: '',
+  isLoggedIn: false,
+  isAdmin: false
+};
 
 /** Jobly App
  *
@@ -28,51 +34,53 @@ import userContext from "./userContext";
  */
 
 function App() {
-
-  const defaultUser = {
-    username: '',
-    isLoggedIn: false,
-    isAdmin: false
-  };
-
-  const [currentUser, setCurrentUser] = useState(defaultUser);
-  // TODO:
-  // could set default to localStorage token
-  const [token, setToken] = useState(null);
+  const [currentUser, setCurrentUser] = useState(DEFAULT_USER);
+  const [token, setToken] = useState(localStorage.getItem("token"));
   const navigate = useNavigate();
 
-  /** User login */
+  console.debug(
+    "App",
+    "currentUser=",
+    currentUser,
+    "token=",
+    token
+  );
+
+  // sets user in localStorage on mount or updated token
+
+  useEffect(function setLocalUserOnRefresh() {
+
+    async function getLocalUser() {
+      const localToken = localStorage.getItem("token");
+      if (localToken) {
+        JoblyApi.token = localToken;
+        const decodedUserData = jwt_decode(localToken);
+        const localUserData = await JoblyApi.getUser(decodedUserData.username);
+        setCurrentUser({ ...localUserData, isLoggedIn: true });
+      }
+    }
+
+    getLocalUser();
+  }, [token]);
+
+  /** User login -------------------------------------------------- */
+
   async function login(username, password) {
     const token = await JoblyApi.loginUser(username, password);
     localStorage.setItem("token", token);
     setToken(token);
     const user = await JoblyApi.getUser(username, password);
-    // TODO:
-    // don't need to use the cb pattern here because state is being overwritten
-    setCurrentUser(currUser => ({ ...user, isLoggedIn: true }));
+    setCurrentUser({ ...user, isLoggedIn: true });
   }
 
-  useEffect(function setLocalUserOnRefresh() {
-    async function getLocalUser() {
-      const localToken = localStorage.getItem("token");
-      if (localToken) {
-        JoblyApi.token = localToken;
-        const decodedUser = jwt_decode(localToken);
-        const localUser = await JoblyApi.getUser(decodedUser.username);
-        setCurrentUser({ ...localUser, isLoggedIn: true });
-      }
-    }
-    getLocalUser();
-  }, [token]);
+  /** User logout ------------------------------------------------- */
 
-  /** User logout */
   function logout() {
-    setCurrentUser(defaultUser);
+    setCurrentUser(DEFAULT_USER);
     setToken('');
     localStorage.removeItem("token");
-    // TODO:
-    // wrong way to route
-    // <Navigate to='/' /> isn't working
+    // TODO: is there a better way to navigate home after logout?
+    // <Navigate to='/' /> not working
     navigate('/');
   }
 
@@ -89,16 +97,11 @@ function App() {
   }
 
   // TODO:
-  // doc string is a lie?
-  /** User update
+  /** User update --------------------------------------------------
    *
    * Expected input:
    * { username, password, firstName, lastName, email }
    */
-  async function update(user) {
-    const response = await JoblyApi.registerUser(user);
-    login(user.username, user.password);
-  }
 
   return (
     <div className="App">
@@ -110,10 +113,11 @@ function App() {
         }
       }}>
         <NavBar logout={logout} />
-        <RoutesList login={login} signup={signup} update={update} />
+        <RoutesList login={login} signup={signup} /** update={update} */ />
       </userContext.Provider>
     </div>
   );
 }
+
 
 export default App;
