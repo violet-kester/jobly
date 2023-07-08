@@ -1,7 +1,7 @@
 import "./CompanyCard.css";
 import { Link } from 'react-router-dom';
 
-/** CompanyCard
+/** CompanyCard component
  *
  * Card displaying details on a single company.
  *

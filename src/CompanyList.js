@@ -2,10 +2,11 @@ import SearchForm from './SearchForm';
 import { useEffect, useState } from "react";
 import CompanyCard from './CompanyCard';
 import JoblyApi from "./api";
-import { NavLink, Link } from "react-router-dom";
 
 
-/** CompanyList that shows companies
+/** CompanyList component
+ *
+ * Shows list of company cards.
  *
  * Props: N/A
  *
