@@ -50,9 +50,9 @@ function NavBar({ logout }) {
               Jobs
             </NavLink>
 
-            <NavLink to="/profile">
+            {/* <NavLink to="/profile">
               Profile
-            </NavLink>
+            </NavLink> */}
 
             <button onClick={logout}>Logout {user.user.username}</button>
 
