@@ -17,10 +17,19 @@ const DEFAULT_USER = {
 const THEME = createTheme({
   palette: {
     primary: {
-      main: '#58009b'
+      light: '#fff',
+      main: '#333',
+      dark: '#1a1a1a'
     },
     secondary: {
-      main: '#3d44ea'
+      main: '#58009b'
+    }
+  },
+  components: {
+    MuiCard: {
+      defaultProps: {
+        elevation: 0
+      }
     }
   }
 });
