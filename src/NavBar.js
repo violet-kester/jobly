@@ -23,7 +23,11 @@ function NavBar({ logout }) {
     <nav className="NavBar">
 
       <NavLink to="/">
-        <Typography className="NavBar-logo" variant="h4">Jobly</Typography>
+        <Typography className="NavBar-logo" variant="h4" sx={{
+          color: (theme) => theme.palette.primary.dark,
+        }}>
+          Jobly
+        </Typography>
       </NavLink>
 
       {/* unprotected routes */}
