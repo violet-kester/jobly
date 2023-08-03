@@ -6,12 +6,24 @@ import JoblyApi from './api';
 import userContext from "./userContext";
 import NavBar from './NavBar';
 import RoutesList from './RoutesList';
+import { createTheme, colors, ThemeProvider } from '@mui/material';
 
 const DEFAULT_USER = {
   username: '',
   isLoggedIn: false,
   isAdmin: false
 };
+
+const THEME = createTheme({
+  palette: {
+    primary: {
+      main: '#58009b'
+    },
+    secondary: {
+      main: '#3d44ea'
+    }
+  }
+});
 
 /** Jobly App
  *
@@ -104,18 +116,20 @@ function App() {
    */
 
   return (
-    <div className="App">
-      <userContext.Provider value={{
-        user: {
-          username: currentUser.username,
-          isLoggedIn: currentUser.isLoggedIn,
-          isAdmin: currentUser.isAdmin
-        }
-      }}>
-        <NavBar logout={logout} />
-        <RoutesList login={login} signup={signup} /** update={update} */ />
-      </userContext.Provider>
-    </div>
+    <ThemeProvider theme={THEME}>
+      <div className="App">
+        <userContext.Provider value={{
+          user: {
+            username: currentUser.username,
+            isLoggedIn: currentUser.isLoggedIn,
+            isAdmin: currentUser.isAdmin
+          }
+        }}>
+          <NavBar logout={logout} />
+          <RoutesList login={login} signup={signup} /** update={update} */ />
+        </userContext.Provider>
+      </div>
+    </ThemeProvider>
   );
 }
 
