@@ -6,7 +6,7 @@ import JoblyApi from './api';
 import userContext from "./userContext";
 import NavBar from './NavBar';
 import RoutesList from './RoutesList';
-import { createTheme, colors, ThemeProvider } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 const DEFAULT_USER = {
   username: '',
@@ -19,7 +19,7 @@ const THEME = createTheme({
     primary: {
       light: '#fff',
       main: '#333',
-      dark: '#1a1a1a'
+      dark: '#262626'
     },
     secondary: {
       main: '#58009b'
@@ -28,7 +28,35 @@ const THEME = createTheme({
   components: {
     MuiCard: {
       defaultProps: {
-        elevation: 0
+        elevation: 0,
+      },
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          minHeight: '0',
+          '@media (min-width: 600px)': {
+            minHeight: '0',
+            padding: '15px'
+          }
+        }
+      }
+    },
+    MuiTypography: {
+      styleOverrides: {
+        h5: {
+          letterSpacing: '1px'
+        },
+        body1: {
+          letterSpacing: '1px'
+        }
+      }
+    },
+    MuiButton: {
+      styleOverrides: {
+        outlined: {
+          letterSpacing: '2px'
+        }
       }
     }
   }
