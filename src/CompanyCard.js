@@ -1,6 +1,6 @@
 import "./CompanyCard.css";
 import { Link } from 'react-router-dom';
-import { Box, Card, CardContent, CardMedia, Typography, useTheme } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Typography} from '@mui/material';
 
 /** CompanyCard component
  *
@@ -11,7 +11,7 @@ import { Box, Card, CardContent, CardMedia, Typography, useTheme } from '@mui/ma
  *   {
  *     "handle": "anderson-arias-morrow",
  *     "name": "Anderson, Arias and Morrow",
- *     "description": "Somebody program how I. Face give away discussion view act inside. Your official relationship administration here.",
+ *     "description": "Somebody program how I...",
  *     "numEmployees": 245,
  *     "logoUrl": "/logos/logo3.png",
  *   }
@@ -22,7 +22,6 @@ import { Box, Card, CardContent, CardMedia, Typography, useTheme } from '@mui/ma
  */
 
 function CompanyCard({ company }) {
-  const theme = useTheme();
 
   return (
     <Box className="CompanyCard">
@@ -33,8 +32,8 @@ function CompanyCard({ company }) {
               component="img"
               image={company.logoUrl}
               sx={{
-                height: 75,
-                marginTop: '10px',
+                height: 50,
+                marginTop: '15px',
                 objectFit: 'contain',
               }}
               m="3"
@@ -45,12 +44,12 @@ function CompanyCard({ company }) {
               gutterBottom
               variant="h5"
               sx={{
-                color: (theme) => theme.palette.primary.dark
+                color: (theme) => theme.palette.primary.main
               }}>
               {company.name}
             </Typography>
             <Typography
-              variant="body2"
+              variant="body1"
               sx={{
                 color: (theme) => theme.palette.primary.main
               }}>
@@ -58,14 +57,6 @@ function CompanyCard({ company }) {
             </Typography>
           </CardContent>
         </Card>
-        {/* {company.logoUrl &&
-          <img
-            className="CompanyCard-logo"
-            src={company.logoUrl}
-            alt={`${company.name} logo`} />
-        }
-        <h3 className="CompanyCard-name">{company.name}</h3>
-        <p>{company.description}</p> */}
       </Link>
     </Box>
   );
