@@ -9,7 +9,7 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-import FingerprintIcon from '@mui/icons-material/Fingerprint';
+
 /** NavBar with links to main routes.
  *
  * Props:
