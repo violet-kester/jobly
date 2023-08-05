@@ -1,4 +1,3 @@
-import './App.css';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
@@ -47,10 +46,23 @@ const THEME = createTheme({
         root: {
           letterSpacing: '1px',
         },
+        h1: {
+          color: '#333',
+          letterSpacing: '4px'
+        },
+        h4: {
+          color: '#333',
+        },
+        h5: {
+          color: '#333'
+        },
       },
     },
     MuiButton: {
       styleOverrides: {
+        contained: {
+          letterSpacing: '2px',
+        },
         outlined: {
           letterSpacing: '2px',
         },
