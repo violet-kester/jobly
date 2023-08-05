@@ -1,6 +1,6 @@
-import "./CompanyCard.css";
 import { Link } from 'react-router-dom';
-import { Box, Card, CardContent, CardMedia, Typography} from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
+import StyledBox from './custom-components/Box/Box'
 
 /** CompanyCard component
  *
@@ -24,7 +24,8 @@ import { Box, Card, CardContent, CardMedia, Typography} from '@mui/material';
 function CompanyCard({ company }) {
 
   return (
-    <Box className="CompanyCard">
+    <StyledBox>
+
       <Link to={`/companies/${company.handle}`}>
         <Card>
           {company.logoUrl &&
@@ -39,26 +40,20 @@ function CompanyCard({ company }) {
               m="3"
             />
           }
-          <CardContent>
-            <Typography
-              gutterBottom
-              variant="h5"
-              sx={{
-                color: (theme) => theme.palette.primary.main
-              }}>
+          <CardContent sx={{
+            padding: '24px'
+          }}>
+            <Typography variant="h5" gutterBottom>
               {company.name}
             </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                color: (theme) => theme.palette.primary.main
-              }}>
+            <Typography variant="body1">
               {company.description}
             </Typography>
           </CardContent>
         </Card>
       </Link>
-    </Box>
+
+    </StyledBox >
   );
 }
 
