@@ -43,15 +43,15 @@ function NavBar({ logout }) {
           <Box sx={{
             display: 'flex',
             alignItems: 'center',
-            color: (theme) => theme.palette.primary.main
           }}>
             <Box
               component="img"
               sx={{ height: "35px"}}
               alt="Logo"
               src="../logo.png"
-            />
-            <Typography variant="h4" component="div" sx={{
+              />
+            <Typography variant="h4" sx={{
+              color: (theme) => theme.palette.primary.main,
               marginLeft: '10px',
               letterSpacing: '3px'
             }}>
