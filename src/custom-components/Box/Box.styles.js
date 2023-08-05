@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 
 export const StyledBox = styled.div`
-  padding: 15px;
+  padding: 16px;
   max-width: 90%;
   border-radius: 15px;
   margin: 10px auto;
