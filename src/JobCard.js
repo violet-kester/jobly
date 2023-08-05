@@ -1,4 +1,5 @@
-import './JobCard.css'
+import { Box, Card, CardContent, Typography } from '@mui/material';
+import StyledBox from './custom-components/Box/Box';
 
 /** JobCard for information on a single job
  *
@@ -19,17 +20,38 @@ import './JobCard.css'
  * JobCardList -> JobCard
  */
 
-
 function JobCard({ job }) {
 
 	return (
-		<div className="JobCard" >
-			<h3 className='JobCard-title'>{job.title}</h3>
-			{job.companyName && <p>Company: {job.companyName}</p>}
-			<br/>
-			<p>Salary: {Number(job.salary).toLocaleString()}</p>
-			<p>Equity: {job.equity}</p>
-		</div>
+		<StyledBox>
+
+			<Card>
+				<CardContent sx={{
+					padding: '24px'
+				}}>
+
+					<Typography variant="h5" gutterBottom>
+						{job.title}
+					</Typography>
+
+					{job.companyName &&
+						<Box>
+							<Typography variant="body1">
+								Company: {job.companyName}
+							</Typography>
+							<Typography variant="body1">
+								Salary: {Number(job.salary).toLocaleString()}
+							</Typography>
+							<Typography variant="body1">
+								Equity: {job.equity}
+							</Typography>
+						</Box>
+					}
+
+				</CardContent>
+			</Card>
+
+		</StyledBox>
 	);
 }
 
