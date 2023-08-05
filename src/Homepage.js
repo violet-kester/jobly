@@ -1,7 +1,8 @@
 import { useContext } from "react";
 import userContext from "./userContext";
 import { Link } from "react-router-dom";
-import "./Homepage.css";
+import { Box, Button, Stack, Typography } from '@mui/material';
+import StyledBox from './custom-components/Box/Box';
 
 /** Homepage.
  *
@@ -16,17 +17,54 @@ function Homepage() {
   const user = useContext(userContext);
 
   return (
-    <div className='Homepage'>
-      <h1>Jobly</h1>
-      <h3>All the jobs in one, convenient place</h3>
+    <StyledBox>
+
+      <Box
+        component="img"
+        sx={{ maxWidth: '30%' }}
+        alt="Logo"
+        src="../logo-large.png"
+        m={1}
+      />
+      <Box m={1}>
+        <Typography variant='h1'>Jobly</Typography>
+        <Typography variant='h4' sx={{ fontStyle: 'italic' }}>Find your dream job in minutes.</Typography>
+      </Box>
+
       {localStorage.getItem("token") &&
-        <h2>Welcome back, {user.user.username}</h2>}
+        <Typography variant="h5" sx={{
+          margin: '32px 0 24px'
+        }}>
+          Welcome back, <b>{user.user.username}</b>!
+        </Typography>
+      }
+
       {!localStorage.getItem("token") &&
-        <div>
-          <button><Link to="/login">Login</Link></button>
-          <button><Link to="/signup">Sign up</Link></button>
-        </div>}
-    </div>
+        <Stack direction="row" justifyContent="center" spacing={2} sx={{
+          margin: '32px 0 24px'
+        }}>
+          <Button
+            component={Link}
+            to="/login"
+            variant="contained"
+            size="large"
+            disableElevation
+          >
+            Login
+          </Button>
+          <Button
+            component={Link}
+            to="/signup"
+            variant="contained"
+            size="large"
+            disableElevation
+          >
+            Signup
+          </Button>
+        </Stack>
+      }
+
+    </StyledBox>
   );
 }
 
