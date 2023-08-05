@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import StyledBox from './custom-components/Box/Box'
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import StyledBox from './custom-components/Box/Box';
 
 /** CompanyCard component
  *
@@ -37,7 +37,6 @@ function CompanyCard({ company }) {
                 marginTop: '15px',
                 objectFit: 'contain',
               }}
-              m="3"
             />
           }
           <CardContent sx={{
@@ -53,7 +52,7 @@ function CompanyCard({ company }) {
         </Card>
       </Link>
 
-    </StyledBox >
+    </StyledBox>
   );
 }
 

@@ -28,13 +28,12 @@ function NavBar({ logout }) {
     <AppBar position="sticky" sx={{
       backgroundColor: 'rgba(255, 255, 255, 0.5)',
       backdropFilter: 'blur(10px)',
-      marginBottom: '20px',
-      boxShadow: '0px 3px 10px 3px rgba(0,0,0,0.1)',
+      marginBottom: '24px',
+      boxShadow: '0px 3px 8px 3px rgba(0,0,0,0.1)',
     }}>
       <Toolbar sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        padding: '10px',
       }}>
 
         {/* logo */}
@@ -46,14 +45,15 @@ function NavBar({ logout }) {
           }}>
             <Box
               component="img"
-              sx={{ height: "35px"}}
-              alt="Logo"
+              sx={{ height: "36px"}}
+              alt="Logo icon"
               src="../logo.png"
               />
             <Typography variant="h4" sx={{
               color: (theme) => theme.palette.primary.main,
-              marginLeft: '10px',
-              letterSpacing: '3px'
+              marginLeft: '16px',
+              letterSpacing: '3px',
+              textDecoration: 'none',
             }}>
               Jobly
             </Typography>
@@ -63,7 +63,7 @@ function NavBar({ logout }) {
         {/* unprotected routes */}
 
         {!localStorage.getItem("token") &&
-          <Stack direction="row" spacing={1}>
+          <Stack direction="row" spacing={2}>
             <Button component={NavLink} to="/login" variant="outlined">Login</Button>
             <Button component={NavLink} to="/signup" variant="outlined">Signup</Button>
           </Stack>
@@ -72,7 +72,7 @@ function NavBar({ logout }) {
         {/* protected routes */}
 
         {localStorage.getItem("token") &&
-          <Stack direction="row" spacing={1}>
+          <Stack direction="row" spacing={2}>
             <Button component={NavLink} to="/companies" variant="outlined">Companies</Button>
             <Button component={NavLink} to="/jobs" variant="outlined">Jobs</Button>
             <Button onClick={logout} variant="outlined">Logout {user.user.username}</Button>
