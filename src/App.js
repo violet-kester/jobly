@@ -19,11 +19,11 @@ const THEME = createTheme({
     primary: {
       light: '#fff',
       main: '#333',
-      dark: '#262626'
+      dark: '#262626',
     },
     secondary: {
-      main: '#58009b'
-    }
+      main: '#58009b',
+    },
   },
   components: {
     MuiCard: {
@@ -37,29 +37,26 @@ const THEME = createTheme({
           minHeight: '0',
           '@media (min-width: 600px)': {
             minHeight: '0',
-            padding: '15px'
-          }
-        }
-      }
+            padding: '15px',
+          },
+        },
+      },
     },
     MuiTypography: {
       styleOverrides: {
-        h5: {
-          letterSpacing: '1px'
+        root: {
+          letterSpacing: '1px',
         },
-        body1: {
-          letterSpacing: '1px'
-        }
-      }
+      },
     },
     MuiButton: {
       styleOverrides: {
         outlined: {
-          letterSpacing: '2px'
-        }
-      }
-    }
-  }
+          letterSpacing: '2px',
+        },
+      },
+    },
+  },
 });
 
 /** Jobly App
