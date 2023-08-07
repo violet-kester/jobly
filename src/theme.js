@@ -8,7 +8,10 @@ export const theme = createTheme({
       dark: '#262626',
     },
     secondary: {
-      main: '#58009b',
+      main: '#a5ebc8',
+    },
+    tertiary: {
+      main: '#eeab63'
     },
   },
   components: {
@@ -17,13 +20,11 @@ export const theme = createTheme({
         elevation: 0,
       },
     },
-    MuiToolbar: {
+    MuiContainer: {
       styleOverrides: {
         root: {
-          minHeight: '0',
           '@media (min-width: 600px)': {
-            minHeight: '0',
-            padding: '15px',
+            padding: '0',
           },
         },
       },
