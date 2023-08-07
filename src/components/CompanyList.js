@@ -1,8 +1,7 @@
-import SearchForm from './SearchForm';
 import { useEffect, useState } from "react";
-import CompanyCard from './CompanyCard';
-import JoblyApi from "./api";
-
+import JoblyApi from "../api";
+import SearchForm from './SearchForm';
+import CompanyCard from '../components/CompanyCard';
 
 /** CompanyList component
  *
@@ -78,8 +77,6 @@ function CompanyList() {
       });
     }
   }
-
-
 
   if (companies.isLoading) {
     return <i>Loading companies...</i>;

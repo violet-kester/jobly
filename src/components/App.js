@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
-import JoblyApi from './api';
-import userContext from "./userContext";
+import JoblyApi from '../api';
+import userContext from "../userContext";
 import NavBar from './NavBar';
 import RoutesList from './RoutesList';
-import { theme } from './theme';
-import { Box, ThemeProvider, styled } from '@mui/material';
+import { theme } from '../theme';
+import { Box, Container, ThemeProvider, styled } from '@mui/material';
 
 const DEFAULT_USER = {
   username: '',
@@ -15,11 +15,19 @@ const DEFAULT_USER = {
 };
 
 const StyledBox = styled(Box)({
-  // background: {url(../public/bg.jpg)},
-  backgroundAttachment: `fixed`,
-  backgroundPosition: `50%`,
-  backgroundRepeat: `no-repeat`,
-  backgroundSize: `cover`,
+  height: '100%',
+  minHeight: '100vh',
+  width: '100%',
+  backgroundColor: 'rgba(238, 171, 99, .6)',
+  textAlign: 'center',
+});
+
+const StyledContainer = styled(Container)({
+  minHeight: '100vh',
+  padding: '0px',
+  display: 'flex',
+  flexDirection: 'column',
+  backgroundColor: 'rgba(165, 235, 200, .35)',
   textAlign: 'center',
 });
 
@@ -106,27 +114,22 @@ function App() {
     navigate('/');
   }
 
-  // TODO:
-  /** User update --------------------------------------------------
-   *
-   * Expected input:
-   * { username, password, firstName, lastName, email }
-   */
-
   return (
     <ThemeProvider theme={theme}>
-      <StyledBox>
-        <userContext.Provider value={{
-          user: {
-            username: currentUser.username,
-            isLoggedIn: currentUser.isLoggedIn,
-            isAdmin: currentUser.isAdmin
-          }
-        }}>
-          <NavBar logout={logout} />
-          <RoutesList login={login} signup={signup} /** update={update} */ />
-        </userContext.Provider>
-      </StyledBox>
+      <userContext.Provider value={{
+        user: {
+          username: currentUser.username,
+          isLoggedIn: currentUser.isLoggedIn,
+          isAdmin: currentUser.isAdmin
+        }
+      }}>
+        <StyledBox>
+          <StyledContainer>
+            <NavBar logout={logout} />
+            <RoutesList login={login} signup={signup} /** update={update} */ />
+          </StyledContainer>
+        </StyledBox>
+      </userContext.Provider>
     </ThemeProvider>
   );
 }

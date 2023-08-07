@@ -1,14 +1,29 @@
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
-import userContext from "./userContext";
+import userContext from "../userContext";
 import {
   AppBar,
   Box,
   Button,
   Stack,
+  styled,
   Toolbar,
   Typography,
 } from '@mui/material';
+
+const StyledAppBar = styled(AppBar)({
+  width: '100%',
+  backgroundColor: 'rgba(165, 235, 200, 0.5)',
+  backdropFilter: 'blur(10px)',
+  marginBottom: '24px',
+  boxShadow: '0px 1px 3px 2px rgba(0,0,0,0.1)',
+
+});
+
+const StyledToolbar = styled(Toolbar)({
+    display: 'flex',
+    justifyContent: 'space-between',
+})
 
 /** NavBar with links to main routes.
  *
@@ -25,16 +40,8 @@ function NavBar({ logout }) {
   const user = useContext(userContext);
 
   return (
-    <AppBar position="sticky" sx={{
-      backgroundColor: 'rgba(255, 255, 255, 0.5)',
-      backdropFilter: 'blur(10px)',
-      marginBottom: '24px',
-      boxShadow: '0px 3px 8px 3px rgba(0,0,0,0.1)',
-    }}>
-      <Toolbar sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-      }}>
+    <StyledAppBar position="sticky">
+      <StyledToolbar>
 
         {/* logo */}
 
@@ -45,10 +52,10 @@ function NavBar({ logout }) {
           }}>
             <Box
               component="img"
-              sx={{ height: "36px"}}
+              sx={{ height: "36px" }}
               alt="Logo icon"
               src="../logo.png"
-              />
+            />
             <Typography variant="h4" sx={{
               color: (theme) => theme.palette.primary.main,
               marginLeft: '16px',
@@ -79,8 +86,8 @@ function NavBar({ logout }) {
           </Stack>
         }
 
-      </Toolbar>
-    </AppBar>
+      </StyledToolbar>
+    </StyledAppBar>
   );
 }
 

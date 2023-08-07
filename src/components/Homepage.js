@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import userContext from "./userContext";
+import userContext from "../userContext";
 import { Link } from "react-router-dom";
 import { Box, Button, Stack, Typography } from '@mui/material';
-import StyledBox from './custom-components/Box/Box';
+import MintGlassBox from './Box/Box';
+import { red } from "@mui/material/colors";
 
 /** Homepage.
  *
@@ -17,21 +18,37 @@ function Homepage() {
   const user = useContext(userContext);
 
   return (
-    <StyledBox>
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      height: '80vh',
+    }}>
+      <MintGlassBox>
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+        }}>
 
-      <Box
-        component="img"
-        sx={{ maxWidth: '30%' }}
-        alt="Logo"
-        src="../logo-large.png"
-        m={1}
-      />
-      <Box m={1}>
-        <Typography variant='h1'>Jobly</Typography>
-        <Typography variant='h4' sx={{ fontStyle: 'italic' }}>Find your dream job in minutes.</Typography>
-      </Box>
+          <Box
+            component="img"
+            sx={{ maxWidth: '50%' }}
+            alt="Logo"
+            src="../logo-large.png"
+            m={2}
+          />
+          <Box m={1}>
+            <Typography variant='h1'>Jobly</Typography>
+            <Typography variant='h4' sx={{ fontStyle: 'italic' }}>Find your dream job in minutes.</Typography>
+          </Box>
+        </Box>
+      </MintGlassBox>
 
-      {localStorage.getItem("token") &&
+      {
+        localStorage.getItem("token") &&
         <Typography variant="h5" sx={{
           margin: '32px 0 24px'
         }}>
@@ -39,7 +56,8 @@ function Homepage() {
         </Typography>
       }
 
-      {!localStorage.getItem("token") &&
+      {
+        !localStorage.getItem("token") &&
         <Stack direction="row" justifyContent="center" spacing={2} sx={{
           margin: '32px 0 24px'
         }}>
@@ -62,9 +80,9 @@ function Homepage() {
             Signup
           </Button>
         </Stack>
-      }
+  }
 
-    </StyledBox>
+    </Box >
   );
 }
 

@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, Typography } from '@mui/material';
-import StyledBox from './custom-components/Box/Box';
+import MintGlassBox from './Box/Box';
 
 /** JobCard for information on a single job
  *
@@ -23,7 +23,7 @@ import StyledBox from './custom-components/Box/Box';
 function JobCard({ job }) {
 
 	return (
-		<StyledBox>
+		<MintGlassBox>
 
 			<Card>
 				<CardContent sx={{
@@ -51,7 +51,7 @@ function JobCard({ job }) {
 				</CardContent>
 			</Card>
 
-		</StyledBox>
+		</MintGlassBox>
 	);
 }
 
