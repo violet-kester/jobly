@@ -1,34 +1,34 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 import JoblyApi from '../api';
-import userContext from "../userContext";
+import userContext from '../userContext';
 import NavBar from './NavBar';
 import RoutesList from './RoutesList';
 import { theme } from '../theme';
-import { Box, Container, ThemeProvider, styled } from '@mui/material';
+import { Container, ThemeProvider, styled } from '@mui/material';
 
 const DEFAULT_USER = {
   username: '',
   isLoggedIn: false,
-  isAdmin: false
+  isAdmin: false,
 };
 
-const StyledBox = styled(Box)({
+const Background = styled('div')({
+  width: '100%',
   height: '100%',
   minHeight: '100vh',
-  width: '100%',
-  backgroundColor: 'rgba(238, 171, 99, .6)',
-  textAlign: 'center',
+  background: 'linear-gradient(0deg, #a5ebc8, white)',
+  backgroundAttachment: 'fixed',
 });
 
 const StyledContainer = styled(Container)({
+  height: '100%',
   minHeight: '100vh',
-  padding: '0px',
-  display: 'flex',
-  flexDirection: 'column',
-  backgroundColor: 'rgba(165, 235, 200, .35)',
-  textAlign: 'center',
+  '@media (min-width: 600px)': {
+    padding: '8px',
+  },
+  backgroundColor: 'rgba(165, 235, 200, .5)',
 });
 
 /** Jobly App
@@ -38,13 +38,13 @@ const StyledContainer = styled(Container)({
  * State:
  * - currentUser:
  * {
+ *   firstName: 'Test',
+ *   lastName: 'User',
+ *   username: 'testuser'
+ *   email: 'test@mail.com',
  *   applications: [],
- *   email: "test@mail.com",
- *   firstName: "Test",
- *   isAdmin: false,
  *   isLoggedIn: true,
- *   lastName: "User",
- *   username: "testuser"
+ *   isAdmin: false,
  * }
  * - token: string token
  *
@@ -53,24 +53,30 @@ const StyledContainer = styled(Container)({
 
 function App() {
   const [currentUser, setCurrentUser] = useState(DEFAULT_USER);
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(localStorage.getItem('token'));
   const navigate = useNavigate();
 
-  console.debug(
-    "App",
-    "currentUser=",
-    currentUser,
-    "token=",
-    token
-  );
+  // login default user on mount
 
-  // sets user in localStorage on mount or updated token
+  useEffect(function loginDefaultUser() {
+
+    async function getDefaultUser() {
+      localStorage.setItem('token', JoblyApi.token);
+      const decodedUserData = jwt_decode(JoblyApi.token);
+      const userData = await JoblyApi.getUser(decodedUserData.username);
+      setCurrentUser({ ...userData, isLoggedIn: true });
+    }
+
+    getDefaultUser();
+  }, []);
+
+  // set user in localStorage on mount or updated token
 
   useEffect(function setLocalUserOnRefresh() {
 
     async function getLocalUser() {
-      const localToken = localStorage.getItem("token");
-      if (localToken) {
+      const localToken = localStorage.getItem('token');
+      if (localToken !== JoblyApi.token) {
         JoblyApi.token = localToken;
         const decodedUserData = jwt_decode(localToken);
         const localUserData = await JoblyApi.getUser(decodedUserData.username);
@@ -85,7 +91,7 @@ function App() {
 
   async function login(username, password) {
     const token = await JoblyApi.loginUser(username, password);
-    localStorage.setItem("token", token);
+    localStorage.setItem('token', token);
     setToken(token);
     const user = await JoblyApi.getUser(username, password);
     setCurrentUser({ ...user, isLoggedIn: true });
@@ -96,7 +102,7 @@ function App() {
   function logout() {
     setCurrentUser(DEFAULT_USER);
     setToken('');
-    localStorage.removeItem("token");
+    localStorage.removeItem('token');
     // TODO: is there a better way to navigate home after logout?
     // <Navigate to='/' /> not working
     navigate('/');
@@ -123,16 +129,15 @@ function App() {
           isAdmin: currentUser.isAdmin
         }
       }}>
-        <StyledBox>
+        <Background>
           <StyledContainer>
             <NavBar logout={logout} />
             <RoutesList login={login} signup={signup} /** update={update} */ />
           </StyledContainer>
-        </StyledBox>
+        </Background>
       </userContext.Provider>
     </ThemeProvider>
   );
 }
-
 
 export default App;
