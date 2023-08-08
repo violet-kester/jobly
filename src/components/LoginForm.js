@@ -14,24 +14,33 @@ import {
 import GlassBox from './Box/Box';
 import StyledButton from './Button/Button';
 
-/** LoginForm.
+/** LoginForm
  *
  * Props:
  * - login: login func to be called in parent
  *
- * State: formData
+ * State:
+ * - formData: {
+ *     username: '',
+ *     password: '',
+ *     errors: null
+ *   }
+ * - showPassword
  *
  * RoutesList -> LoginForm
  */
 
 function LoginForm({ login }) {
-  //TODO: move the initial state to a variable for concision
-  const [formData, setFormData] = useState({ username: '', password: '', errors: null });
+  const [formData, setFormData] = useState(
+    {
+      username: '',
+      password: '',
+      errors: null
+    });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -39,7 +48,6 @@ function LoginForm({ login }) {
   function handleChange(evt) {
     const fieldName = evt.target.name;
     const value = evt.target.value;
-
     setFormData(currData => {
       currData[fieldName] = value;
       return { ...currData };
@@ -62,7 +70,6 @@ function LoginForm({ login }) {
       minWidth: '350px',
       display: 'flex',
       flexDirection: 'column',
-      gap: 2,
       justifyContent: 'center'
     }}>
       <form color='secondary' onSubmit={handleSubmit}>
@@ -122,48 +129,7 @@ function LoginForm({ login }) {
 
       </form>
     </GlassBox >
-
-
-
-
-    // <form className='LoginForm' onSubmit={handleSubmit}>
-    //   <div className='LoginForm-div' key={'LoginForm-div'} >
-    //     <div>
-    //       {/* {TODO: labels form inputs} */}
-    //       <input
-    //         id='LoginForm-username'
-    //         key='username'
-    //         name='username'
-    //         type='text'
-    //         placeholder='username'
-    //         value={formData.username}
-    //         onChange={handleChange}
-    //         aria-label='Title'
-    //       />
-    //     </div>
-    //     <div>
-    //       <input
-    //         id='LoginForm-password'
-    //         key='password'
-    //         name='password'
-    //         type='password'
-    //         placeholder='password'
-    //         value={formData.password}
-    //         onChange={handleChange}
-    //         aria-label='Title'
-    //       />
-    //     </div>
-    //   </div>
-
-    //   <input className='LoginForm-submit' type='submit' value='Log In!'>
-    //   </input>
-    //   <div className='LoginForm-error'>
-    //     {/* Add conditional for displaying errors */}
-    //     {formData.errors}
-    //   </div>
-    // </form>
   );
-
 }
 
 export default LoginForm;
