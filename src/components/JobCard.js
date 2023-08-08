@@ -1,5 +1,6 @@
-import { Box, Card, CardContent, Typography } from '@mui/material';
-import MintGlassBox from './Box/Box';
+import { Box, Card, CardContent } from '@mui/material';
+import GlassBox from './Box/Box';
+import StyledTypography from './Typography/Typography';
 
 /** JobCard for information on a single job
  *
@@ -23,35 +24,35 @@ import MintGlassBox from './Box/Box';
 function JobCard({ job }) {
 
 	return (
-		<MintGlassBox>
+		<GlassBox>
 
-			<Card>
+			<Card elevation={0}>
 				<CardContent sx={{
 					padding: '24px'
 				}}>
 
-					<Typography variant="h5" gutterBottom>
+					<StyledTypography variant="h5" gutterBottom>
 						{job.title}
-					</Typography>
+					</StyledTypography>
 
 					{job.companyName &&
 						<Box>
-							<Typography variant="body1">
+							<StyledTypography variant="body1">
 								Company: {job.companyName}
-							</Typography>
-							<Typography variant="body1">
+							</StyledTypography>
+							<StyledTypography variant="body1">
 								Salary: {Number(job.salary).toLocaleString()}
-							</Typography>
-							<Typography variant="body1">
+							</StyledTypography>
+							<StyledTypography variant="body1">
 								Equity: {job.equity}
-							</Typography>
+							</StyledTypography>
 						</Box>
 					}
 
 				</CardContent>
 			</Card>
 
-		</MintGlassBox>
+		</GlassBox>
 	);
 }
 

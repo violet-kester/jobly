@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import userContext from "../userContext";
-import { Link } from "react-router-dom";
-import { Box, Button, Stack, Typography } from '@mui/material';
-import MintGlassBox from './Box/Box';
-import { red } from "@mui/material/colors";
+import { useContext } from 'react';
+import userContext from '../userContext';
+import { Link } from 'react-router-dom';
+import { Box, Stack, Typography } from '@mui/material';
+import GlassBox from './Box/Box';
+import StyledButton from './Button/Button';
 
 /** Homepage.
  *
@@ -22,65 +22,68 @@ function Homepage() {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
-      height: '80vh',
+      height: '100%',
     }}>
-      <MintGlassBox>
+
+      <GlassBox>
         <Box sx={{
+          paddingBottom: '24px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          height: '100%',
         }}>
 
           <Box
-            component="img"
-            sx={{ maxWidth: '50%' }}
-            alt="Logo"
-            src="../logo-large.png"
+            component='img'
+            sx={{ maxWidth: '50vh' }}
+            alt='Jobly logo'
+            src='/logos/jobly-logo-large.png'
             m={2}
           />
-          <Box m={1}>
-            <Typography variant='h1'>Jobly</Typography>
-            <Typography variant='h4' sx={{ fontStyle: 'italic' }}>Find your dream job in minutes.</Typography>
+          <Box m={2}>
+            <Typography variant='h1' sx={{ letterSpacing: '4px' }}>
+              Jobly
+            </Typography>
+            <Typography variant='h4' sx={{ fontStyle: 'italic' }}>
+              Find your dream job in minutes.
+            </Typography>
           </Box>
+
         </Box>
-      </MintGlassBox>
+      </GlassBox>
 
-      {
-        localStorage.getItem("token") &&
-        <Typography variant="h5" sx={{
-          margin: '32px 0 24px'
-        }}>
-          Welcome back, <b>{user.user.username}</b>!
-        </Typography>
-      }
-
-      {
-        !localStorage.getItem("token") &&
-        <Stack direction="row" justifyContent="center" spacing={2} sx={{
-          margin: '32px 0 24px'
-        }}>
-          <Button
-            component={Link}
-            to="/login"
-            variant="contained"
-            size="large"
-            disableElevation
-          >
-            Login
-          </Button>
-          <Button
-            component={Link}
-            to="/signup"
-            variant="contained"
-            size="large"
-            disableElevation
-          >
-            Signup
-          </Button>
-        </Stack>
-  }
+      <Box m={2}>
+        {
+          localStorage.getItem('token') &&
+          <Typography variant='h5'>
+            Welcome back, <b>{user.user.username}</b>!
+          </Typography>
+        }
+        {
+          !localStorage.getItem('token') &&
+          <Stack direction='row' justifyContent='center' spacing={2}>
+            <StyledButton
+              component={Link}
+              to='/login'
+              variant='contained'
+              size='large'
+              disableElevation
+            >
+              Login
+            </StyledButton>
+            <StyledButton
+              component={Link}
+              to='/signup'
+              variant='contained'
+              size='large'
+              disableElevation
+            >
+              Signup
+            </StyledButton>
+          </Stack>
+        }
+      </Box>
 
     </Box >
   );

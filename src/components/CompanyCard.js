@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
-import MintGlassBox from './Box/Box';
+import { Card, CardContent, CardMedia } from '@mui/material';
+import GlassBox from './Box/Box';
+import StyledTypography from './Typography/Typography';
 
 /** CompanyCard component
  *
@@ -24,10 +25,10 @@ import MintGlassBox from './Box/Box';
 function CompanyCard({ company }) {
 
   return (
-    <MintGlassBox>
+    <GlassBox>
 
       <Link to={`/companies/${company.handle}`}>
-        <Card sx={{
+        <Card elevation= {0} sx={{
           width: '100%',
         }}>
           {company.logoUrl &&
@@ -36,25 +37,25 @@ function CompanyCard({ company }) {
               image={company.logoUrl}
               sx={{
                 height: 50,
-                marginTop: '15px',
+                marginTop: '24px',
                 objectFit: 'contain',
               }}
             />
           }
           <CardContent sx={{
-            padding: '24px',
+            padding: '28px',
           }}>
-            <Typography variant="h5" gutterBottom>
+            <StyledTypography variant="h5" gutterBottom>
               {company.name}
-            </Typography>
-            <Typography variant="body1">
+            </StyledTypography>
+            <StyledTypography variant="body1">
               {company.description}
-            </Typography>
+            </StyledTypography>
           </CardContent>
         </Card>
       </Link>
 
-    </MintGlassBox>
+    </GlassBox>
   );
 }
 
