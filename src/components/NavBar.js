@@ -13,18 +13,17 @@ import StyledButton from './Button/Button';
 
 const StyledAppBar = styled(AppBar)({
   width: '100%',
+  padding: '4px',
   marginBottom: '16px',
   backgroundColor: 'rgba(165, 235, 200, 0.4)',
   backdropFilter: 'blur(10px)',
   boxShadow: '0px 1px 3px 2px rgba(0,0,0,0.1)',
   borderRadius: '8px',
-
 });
 
 const StyledToolbar = styled(Toolbar)({
   display: 'flex',
   justifyContent: 'space-between',
-
 });
 
 /** NavBar with links to main routes.
