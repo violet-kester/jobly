@@ -1,3 +1,3 @@
-import { MintGlassBox } from './Box.styles';
+import { GlassBox } from './Box.styles';
 
-export default MintGlassBox;
+export default GlassBox;
