@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Box, Stack, Typography } from '@mui/material';
 import GlassBox from './Box/Box';
 import StyledButton from './Button/Button';
+import StyledTypography from './Typography/Typography';
 
 /** Homepage.
  *
@@ -36,7 +37,7 @@ function Homepage() {
 
           <Box
             component='img'
-            sx={{ maxWidth: '50vh' }}
+            sx={{ maxWidth: '50vw' }}
             alt='Jobly logo'
             src='/logos/jobly-logo-large.png'
             m={2}
@@ -45,9 +46,9 @@ function Homepage() {
             <Typography variant='h1' sx={{ letterSpacing: '4px' }}>
               Jobly
             </Typography>
-            <Typography variant='h4' sx={{ fontStyle: 'italic' }}>
+            <StyledTypography variant='h4' sx={{ fontStyle: 'italic' }}>
               Find your dream job in minutes.
-            </Typography>
+            </StyledTypography>
           </Box>
 
         </Box>
@@ -56,9 +57,9 @@ function Homepage() {
       <Box m={2}>
         {
           localStorage.getItem('token') &&
-          <Typography variant='h5'>
+          <StyledTypography variant='h5'>
             Welcome back, <b>{user.user.username}</b>!
-          </Typography>
+          </StyledTypography>
         }
         {
           !localStorage.getItem('token') &&
