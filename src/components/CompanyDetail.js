@@ -1,7 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import JobCardList from './JobCardList';
 import JoblyApi from '../api';
+import JobCardList from './JobCardList';
+import CompanyCard from './CompanyCard';
+import { Box, Divider, Typography } from '@mui/material';
+import StyledTypography from './Typography/Typography';
 
 
 /** CompanyDetail for details and jobs from a single company.
@@ -14,7 +17,7 @@ import JoblyApi from '../api';
 
 function CompanyDetail() {
   const { handle } = useParams();
-  const [companyResult, setCompanyResult] = useState({
+  const [company, setCompany] = useState({
     data: null,
     isLoading: true
   });
@@ -23,19 +26,32 @@ function CompanyDetail() {
   useEffect(function getCompanyFromAPIOnMount() {
     async function waitForCompany() {
       const result = await JoblyApi.getCompany(handle);
-      setCompanyResult({data: result, isLoading: false});
+      setCompany({ data: result, isLoading: false });
     }
     waitForCompany();
   }, [handle]);
 
-  if (companyResult.isLoading) return <i>Loading company...</i>
+  if (company.isLoading) {
+    return <StyledTypography variant='h6'>
+      Loading company...
+    </StyledTypography>;
+  }
 
   return (
-    <div className='CompanyDetail'>
-      <h2>{companyResult.data.name}</h2>
-      <p>{companyResult.data.description}</p>
-      <JobCardList jobs={companyResult.data.jobs}/>
-    </div>
+    <Box>
+
+      <CompanyCard company={company.data} />
+
+      <Box mt={3} mb={2}>
+        <Divider variant="middle" />
+        <StyledTypography variant="caption">
+          Posted jobs
+        </StyledTypography>
+      </Box>
+
+      <JobCardList jobs={company.data.jobs} />
+
+    </Box>
   );
 }
 
