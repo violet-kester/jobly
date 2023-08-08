@@ -74,6 +74,7 @@ function App() {
     async function getLocalUser() {
       const localToken = localStorage.getItem('token');
       if (localToken !== JoblyApi.token) {
+        console.log(localToken);
         JoblyApi.token = localToken;
         const decodedUserData = jwt_decode(localToken);
         const localUserData = await JoblyApi.getUser(decodedUserData.username);
