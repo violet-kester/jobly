@@ -37,13 +37,13 @@ function CompanyCard({ company }) {
               image={company.logoUrl}
               sx={{
                 height: 50,
-                marginTop: '24px',
+                marginTop: '20px',
                 objectFit: 'contain',
               }}
             />
           }
           <CardContent sx={{
-            padding: '28px',
+            padding: '24px',
           }}>
             <StyledTypography variant="h5" gutterBottom>
               {company.name}
