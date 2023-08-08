@@ -26,12 +26,7 @@ function JobCard({ job }) {
 	return (
 		<GlassBox>
 
-			<Card elevation={0}>
-				<CardContent sx={{
-					padding: '24px'
-				}}>
-
-					<StyledTypography variant="h5" gutterBottom>
+					<StyledTypography variant="h5">
 						{job.title}
 					</StyledTypography>
 
@@ -48,9 +43,6 @@ function JobCard({ job }) {
 							</StyledTypography>
 						</Box>
 					}
-
-				</CardContent>
-			</Card>
 
 		</GlassBox>
 	);
