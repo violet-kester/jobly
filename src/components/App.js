@@ -59,21 +59,18 @@ function App() {
   // login default user on mount
 
   useEffect(function loginDefaultUser() {
-
     async function getDefaultUser() {
       localStorage.setItem('token', JoblyApi.token);
       const decodedUserData = jwt_decode(JoblyApi.token);
       const userData = await JoblyApi.getUser(decodedUserData.username);
       setCurrentUser({ ...userData, isLoggedIn: true });
     }
-
     getDefaultUser();
   }, []);
 
   // set user in localStorage on mount or updated token
 
   useEffect(function setLocalUserOnRefresh() {
-
     async function getLocalUser() {
       const localToken = localStorage.getItem('token');
       if (localToken !== JoblyApi.token) {
@@ -83,7 +80,6 @@ function App() {
         setCurrentUser({ ...localUserData, isLoggedIn: true });
       }
     }
-
     getLocalUser();
   }, [token]);
 
@@ -103,12 +99,13 @@ function App() {
     setCurrentUser(DEFAULT_USER);
     setToken('');
     localStorage.removeItem('token');
-    // TODO: is there a better way to navigate home after logout?
+    // TODO:
+    // a better way to navigate home after logout
     // <Navigate to='/' /> not working
     navigate('/');
   }
 
-  /** User signup
+  /** User signup -------------------------------------------------
    *
    * Expected input:
    * { username, password, firstName, lastName, email }
