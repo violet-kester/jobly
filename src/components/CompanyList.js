@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import JoblyApi from "../api";
+import { useEffect, useState } from 'react';
+import JoblyApi from '../api';
 import SearchForm from './SearchForm';
 import CompanyCard from '../components/CompanyCard';
+import StyledTypography from './Typography/Typography';
 
 /** CompanyList component
  *
@@ -10,13 +11,13 @@ import CompanyCard from '../components/CompanyCard';
  * Props: N/A
  *
  * State:
- * - companies {data:
-      "handle": "anderson-arias-morrow",
-      "name": "Anderson, Arias and Morrow",
-      "description": "Somebody program how I...",
-      "numEmployees": 245,
-      "logoUrl": "/logos/logo3.png"
-    }..., isLoading: false]
+ * - companies {data: {
+ *     'handle': 'anderson-arias-morrow',
+ *     'name': 'Anderson, Arias and Morrow',
+ *     'description': 'Somebody program how I...',
+ *     'numEmployees': 245,
+ *     'logoUrl': '/logos/logo3.png'
+ *   }..., isLoading: false]
  *
  * Func: handleSearch
  *
@@ -37,7 +38,7 @@ function CompanyList() {
       setCompanies({
         data: result,
         isLoading: false,
-        errors: null
+        errors: null,
       });
     }
     waitForCompanies();
@@ -52,11 +53,10 @@ function CompanyList() {
 
       // if no results, set error msg
       if (result.length === 0) {
-        console.log("no search results");
         setCompanies({
-          data: "bad data",
+          data: 'bad data',
           isLoading: false,
-          errors: 'Sorry, no results were found'
+          errors: 'Sorry, no results were found.'
         });
       } else {
         // if results, update state
@@ -79,13 +79,15 @@ function CompanyList() {
   }
 
   if (companies.isLoading) {
-    return <i>Loading companies...</i>;
+    return <StyledTypography variant='h6'>
+      Loading companies...
+    </StyledTypography>;
   }
 
   return (
     <div className='CompanyList'>
 
-      <SearchForm handleSearch={handleCompanySearch} message="Search Companies!" />
+      <SearchForm handleSearch={handleCompanySearch} message='Search Companies!' />
 
       {companies.errors !== null
         ? companies.errors
