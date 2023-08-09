@@ -4,12 +4,19 @@ import userContext from '../userContext';
 import {
   AppBar,
   Box,
+  IconButton,
   Stack,
   styled,
   Toolbar,
   Typography,
 } from '@mui/material';
+import {
+  MapsHomeWork,
+  Work,
+} from '@mui/icons-material';
 import StyledButton from './Button/Button';
+
+/** Styled components --------------------------------------------- */
 
 const StyledAppBar = styled(AppBar)({
   width: '100%',
@@ -26,18 +33,32 @@ const StyledToolbar = styled(Toolbar)({
   justifyContent: 'space-between',
 });
 
-/** NavBar with links to main routes.
+const IconGroup = styled(Stack)(({ theme }) => ({
+  display: 'flex',
+  [theme.breakpoints.up('md')]: {
+    display: 'none',
+  }
+}));
+
+const ButtonGroup = styled(Stack)(({ theme }) => ({
+  display: 'none',
+  [theme.breakpoints.up('md')]: {
+    display: 'flex',
+  }
+}));
+
+/** NavBar --------------------------------------------------------
  *
  * Props:
- * - logout: logout func to be called in parent
+ * - logout: logout function to be called in App component
  *
- * State: N/A
- *
+ * Component hierarchy:
  * App -> NavBar
+ *
  */
 
 function NavBar({ logout }) {
-  const user = useContext(userContext); //TODO: user could be destructured
+  const { user } = useContext(userContext);
 
   return (
     <StyledAppBar position='sticky'>
@@ -70,6 +91,7 @@ function NavBar({ logout }) {
 
         {!localStorage.getItem('token') &&
           <Stack direction='row' spacing={2}>
+
             <StyledButton
               component={NavLink}
               to='/login'
@@ -84,17 +106,56 @@ function NavBar({ logout }) {
             >
               Signup
             </StyledButton>
+
           </Stack>
         }
 
         {/* protected routes */}
 
         {localStorage.getItem('token') &&
-          <Stack direction='row' spacing={2}>
-            <StyledButton component={NavLink} to='/companies' variant='outlined'>Companies</StyledButton>
-            <StyledButton component={NavLink} to='/jobs' variant='outlined'>Jobs</StyledButton>
-            <StyledButton onClick={logout} variant='outlined'>Logout {user.user.username}</StyledButton>
-          </Stack>
+          <Box>
+
+            <IconGroup direction='row' spacing={2}>
+              <IconButton component={NavLink} to='/companies' color='primary'>
+                <MapsHomeWork />
+              </IconButton>
+              <IconButton component={NavLink} to='/jobs' color='primary'>
+                <Work />
+              </IconButton>
+              <StyledButton
+                onClick={logout}
+                variant='outlined'
+              >
+                Logout
+              </StyledButton>
+            </IconGroup>
+
+            <ButtonGroup direction='row' spacing={2}>
+              <StyledButton
+                component={NavLink}
+                to='/companies'
+                variant='outlined'
+                startIcon={<MapsHomeWork />}
+              >
+                Companies
+              </StyledButton>
+              <StyledButton
+                component={NavLink}
+                to='/jobs'
+                variant='outlined'
+                startIcon={<Work />}
+              >
+                Jobs
+              </StyledButton>
+              <StyledButton
+                onClick={logout}
+                variant='outlined'
+              >
+                Logout {user.username}
+              </StyledButton>
+            </ButtonGroup>
+
+          </Box>
         }
 
       </StyledToolbar>
