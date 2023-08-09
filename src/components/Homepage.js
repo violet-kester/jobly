@@ -37,7 +37,13 @@ function Homepage() {
 
           <Box
             component='img'
-            sx={{ maxWidth: '50vw' }}
+            sx={{
+              maxWidth: {
+                xs: '60vw',
+                sm: '50vw',
+                md: '40vw',
+              },
+            }}
             alt='Jobly logo'
             src='/logos/jobly-logo-large.png'
             m={2}
@@ -68,7 +74,6 @@ function Homepage() {
               component={Link}
               to='/login'
               variant='contained'
-              size='large'
               disableElevation
             >
               Login
@@ -77,7 +82,6 @@ function Homepage() {
               component={Link}
               to='/signup'
               variant='contained'
-              size='large'
               disableElevation
             >
               Signup
