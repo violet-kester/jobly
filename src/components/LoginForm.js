@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
 import {
-  FormControl,
   InputAdornment,
   IconButton,
+  Stack,
   TextField,
 } from '@mui/material';
 import {
@@ -14,75 +16,54 @@ import {
 import GlassBox from './Box/Box';
 import StyledButton from './Button/Button';
 
+const DEFAULT_FORM_DATA = {
+  username: '',
+  password: '',
+};
+
 /** LoginForm
  *
  * Props:
- * - login: login func to be called in parent
+ * - login: login function to be called in parent
  *
  * State:
- * - formData: {
- *     username: '',
- *     password: '',
- *     errors: null
- *   }
  * - showPassword
  *
  * RoutesList -> LoginForm
  */
 
 function LoginForm({ login }) {
-  const [formData, setFormData] = useState(
-    {
-      username: '',
-      password: '',
-      errors: null
-    });
   const [showPassword, setShowPassword] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm(DEFAULT_FORM_DATA);
   const navigate = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
+  const handleMouseDownPassword = (evt) => {
+    evt.preventDefault();
   };
 
-  function handleChange(evt) {
-    const fieldName = evt.target.name;
-    const value = evt.target.value;
-    setFormData(currData => {
-      currData[fieldName] = value;
-      return { ...currData };
-    });
-  }
-
-  async function handleSubmit(evt) {
-    evt.preventDefault();
-    try {
-      await login(formData.username, formData.password);
-      navigate('/');
-    } catch (error) {
-      setFormData(currData => ({ ...currData, errors: error }));
-    }
+  async function onSubmit(data) {
+    await login(data.username, data.password);
+    navigate('/');
   }
 
   return (
-    <GlassBox sx={{
-      width: '50vw',
-      minWidth: '350px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center'
-    }}>
-      <form color='secondary' onSubmit={handleSubmit}>
+    <GlassBox>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Stack spacing={3} width={400} sx={{ margin: '0 auto' }}>
 
-        <FormControl fullWidth sx={{ marginBottom: '8px' }}>
           <TextField
-            variant='outlined'
-            id='input-with-icon-textfield'
-            name='username'
             label='Username'
             type='text'
-            margin='normal'
-            onChange={handleChange}
+            {...register('username', {
+              required: 'Invalid username'
+            })}
+            error={!!errors.username}
+            helperText={errors.username?.message}
             InputProps={{
               startAdornment: (
                 <InputAdornment position='start'>
@@ -91,17 +72,15 @@ function LoginForm({ login }) {
               ),
             }}
           />
-        </FormControl>
 
-        <FormControl variant='outlined' fullWidth sx={{ marginBottom: '16px' }}>
           <TextField
-            variant='outlined'
-            id='standard-adornment-password'
-            name='password'
             label='Password'
             type={showPassword ? 'text' : 'password'}
-            margin='normal'
-            onChange={handleChange}
+            {...register('password', {
+              required: 'Invalid password'
+            })}
+            error={!!errors.password}
+            helperText={errors.password?.message}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
@@ -116,17 +95,17 @@ function LoginForm({ login }) {
               ),
             }}
           />
-        </FormControl>
 
-        <StyledButton
-          variant='contained'
-          type='submit'
-          size='large'
-          disableElevation
-        >
-          Login
-        </StyledButton>
+          <StyledButton
+            variant='contained'
+            type='submit'
+            size='large'
+            disableElevation
+          >
+            Login
+          </StyledButton>
 
+        </Stack>
       </form>
     </GlassBox >
   );
