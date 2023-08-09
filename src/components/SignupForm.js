@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import {
-  FormControl,
   InputAdornment,
   IconButton,
+  Stack,
   TextField,
 } from '@mui/material';
 import {
@@ -15,78 +15,59 @@ import {
 import GlassBox from './Box/Box';
 import StyledButton from './Button/Button';
 
+const DEFAULT_FORM_DATA = {
+  username: '',
+  firstName: '',
+  lastName: '',
+  password: '',
+  email: '',
+};
+
 /** SignupForm
  *
  * Props:
- * - signup: signup func to be called in parent
+ * - signup: signup function to be called App component
+ * - login: login function to be called in App component
  *
  * State:
- * - formData: {
- *     username: '',
- *     firstName: '',
- *     lastName: '',
- *     password: '',
- *     email: ''
- *  }
- * - showPassword
+ * - showPassword: boolean
  *
+ * Component hierarchy:
  * RoutesList -> SignupForm
+ *
  */
-function SignupForm({ signup }) {
-  const [formData, setFormData] = useState(
-    {
-      username: '',
-      firstName: '',
-      lastName: '',
-      password: '',
-      email: ''
-    });
+
+function SignupForm({ signup, login }) {
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+  } = useForm(DEFAULT_FORM_DATA);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
+  const handleMouseDownPassword = (evt) => {
+    evt.preventDefault();
   };
 
-  function handleChange(evt) {
-    const fieldName = evt.target.name;
-    const value = evt.target.value;
-    setFormData(currData => {
-      currData[fieldName] = value;
-      return { ...currData };
-    });
-  }
-
-  async function handleSubmit(evt) {
-    evt.preventDefault();
-    try {
-      await signup(formData);
-      navigate("/");
-    } catch (error) {
-      setFormData(currData => ({ ...currData, errors: error }));
-    }
+  async function onSubmit(data) {
+    await signup(data);
+    await login(data.username, data.password);
   }
 
   return (
-    <GlassBox sx={{
-      width: '50vw',
-      minWidth: '350px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center'
-    }}>
-      <form color='secondary' onSubmit={handleSubmit}>
+    <GlassBox>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Stack spacing={3} width={400} sx={{ margin: '0 auto' }}>
 
-        <FormControl fullWidth sx={{ marginBottom: '8px' }}>
           <TextField
-            variant='outlined'
-            id='input-with-icon-textfield'
-            name='username'
             label='Username'
             type='text'
-            margin='normal'
-            onChange={handleChange}
+            {...register('username', {
+              required: 'Invalid username'
+            })}
+            error={!!errors.username}
+            helperText={errors.username?.message}
             InputProps={{
               startAdornment: (
                 <InputAdornment position='start'>
@@ -95,17 +76,15 @@ function SignupForm({ signup }) {
               ),
             }}
           />
-        </FormControl>
 
-        <FormControl variant='outlined' fullWidth sx={{ marginBottom: '8px' }}>
           <TextField
-            variant='outlined'
-            id='standard-adornment-password'
-            name='password'
             label='Password'
             type={showPassword ? 'text' : 'password'}
-            margin='normal'
-            onChange={handleChange}
+            {...register('password', {
+              required: 'Invalid password'
+            })}
+            error={!!errors.password}
+            helperText={errors.password?.message}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
@@ -120,41 +99,27 @@ function SignupForm({ signup }) {
               ),
             }}
           />
-        </FormControl>
 
-        <FormControl fullWidth sx={{ marginBottom: '8px' }}>
           <TextField
-            variant='outlined'
-            id='standard-required'
-            name='firstName'
             label='First name'
             type='text'
-            margin='normal'
-            onChange={handleChange}
+            {...register('firstName')}
           />
-        </FormControl>
 
-        <FormControl fullWidth sx={{ marginBottom: '8px' }}>
           <TextField
-            variant='outlined'
-            id='standard-required'
-            name='lastName'
             label='Last name'
             type='text'
-            margin='normal'
-            onChange={handleChange}
+            {...register('lastName')}
           />
-        </FormControl>
 
-        <FormControl fullWidth sx={{ marginBottom: '16px' }}>
           <TextField
-            variant='outlined'
-            id='input-with-icon-textfield'
-            name='email'
             label='Email'
-            type='text'
-            margin='normal'
-            onChange={handleChange}
+            type='email'
+            {...register('email', {
+              required: 'Invalid username'
+            })}
+            error={!!errors.email}
+            helperText={errors.email?.message}
             InputProps={{
               startAdornment: (
                 <InputAdornment position='start'>
@@ -163,94 +128,19 @@ function SignupForm({ signup }) {
               ),
             }}
           />
-        </FormControl>
 
-        <StyledButton
-          variant='contained'
-          type='submit'
-          size='large'
-          disableElevation
-        >
-          Sign up
-        </StyledButton>
+          <StyledButton
+            variant='contained'
+            type='submit'
+            size='large'
+            disableElevation
+          >
+            Sign up
+          </StyledButton>
 
+        </Stack>
       </form>
     </GlassBox >
-
-
-
-    // <form className="SignupForm" onSubmit={handleSubmit}>
-    //   <div className="SignupForm-div" key={'SignupForm-div'} >
-    //     <div>
-    //       <input
-    //         id='SignupForm-username'
-    //         key='username'
-    //         name='username'
-    //         type='text'
-    //         placeholder='username'
-    //         value={formData.username}
-    //         onChange={handleChange}
-    //         aria-label="Title"
-    //       />
-    //     </div>
-    //     <div>
-    //       <input
-    //         id='SignupForm-firstName'
-    //         key='firstName'
-    //         name='firstName'
-    //         type='text'
-    //         placeholder='firstName'
-    //         value={formData.firstName}
-    //         onChange={handleChange}
-    //         aria-label="Title"
-    //       />
-    //     </div>
-    //     <div>
-    //       <input
-    //         id='SignupForm-lastName'
-    //         key='lastName'
-    //         name='lastName'
-    //         type='text'
-    //         placeholder='lastName'
-    //         value={formData.lastName}
-    //         onChange={handleChange}
-    //         aria-label="Title"
-    //       />
-    //     </div>
-    //     <div>
-    //       <input
-    //         id='SignupForm-password'
-    //         key='password'
-    //         name='password'
-    //         type='password'
-    //         placeholder='password'
-    //         value={formData.password}
-    //         onChange={handleChange}
-    //         aria-label="Title"
-    //       />
-    //     </div>
-    //     <div>
-    //       <input
-    //         id='SignupForm-email'
-    //         key='email'
-    //         name='email'
-    //         type='text'
-    //         placeholder='email'
-    //         value={formData.email}
-    //         onChange={handleChange}
-    //         aria-label="Title"
-    //       />
-    //     </div>
-    //   </div>
-
-    //   <input className='SignupForm-submit' type='submit' value='Sign up!'>
-    //   </input>
-
-    //   <div className="SignupForm-error">
-    //     {/* Conditional here too. Map these for formatting */}
-    //     {formData.errors}
-    //   </div>
-    // </form>
   );
 }
 
