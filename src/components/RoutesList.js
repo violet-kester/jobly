@@ -9,17 +9,15 @@ import CompanyDetail from './CompanyDetail';
 import JobList from './JobList';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
-import ProfileForm from './ProfileForm';
 
-/** RoutesList for routing
+/** RoutesList
  *
  * Props:
- * - login: login func to be called in parent
- * - signup: signup func to be called in parent
- * - update: update func to be called in parent
+ * - login: login function to be called in App component
+ * - signup: signup function to be called in App component
+ * - update: update function to be called in App component
  *
- * State: N/A
- *
+ * Component hierarchy:
  * App -> RoutesList -> [
  *   Homepage,
  *   CompanyList,
@@ -27,12 +25,12 @@ import ProfileForm from './ProfileForm';
  *   JobList,
  *   LoginForm,
  *   SignupForm,
- *   Profile
+ *   Profile,
  * ]
  *
  */
 
-function RoutesList({login, signup, update}) {
+function RoutesList({ login, signup, update }) {
   return (
     <Routes>
       <Route
@@ -62,7 +60,7 @@ function RoutesList({login, signup, update}) {
 
       <Route
         path="/signup"
-        element={<SignupForm signup={signup} />}
+        element={<SignupForm signup={signup} login={login} />}
       />
 
       {/* <Route
