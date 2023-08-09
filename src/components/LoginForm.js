@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { DevTool } from '@hookform/devtools';
 import {
   InputAdornment,
   IconButton,
@@ -21,23 +20,25 @@ const DEFAULT_FORM_DATA = {
   password: '',
 };
 
-/** LoginForm
+/** LoginForm -----------------------------------------------------
  *
  * Props:
- * - login: login function to be called in parent
+ * - login: login function to be called in App component
  *
  * State:
- * - showPassword
+ * - showPassword: boolean
  *
+ * Component hierarchy:
  * RoutesList -> LoginForm
+ *
  */
 
 function LoginForm({ login }) {
   const [showPassword, setShowPassword] = useState(false);
   const {
-    register,
-    handleSubmit,
     formState: { errors },
+    handleSubmit,
+    register,
   } = useForm(DEFAULT_FORM_DATA);
   const navigate = useNavigate();
 
@@ -99,7 +100,6 @@ function LoginForm({ login }) {
           <StyledButton
             variant='contained'
             type='submit'
-            size='large'
             disableElevation
           >
             Login
