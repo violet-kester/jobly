@@ -56,14 +56,15 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const navigate = useNavigate();
 
-  // login default user on mount
+  // login default user `testuser` on mount
 
   useEffect(function loginDefaultUser() {
     async function getDefaultUser() {
-      localStorage.setItem('token', JoblyApi.token);
-      const decodedUserData = jwt_decode(JoblyApi.token);
-      const userData = await JoblyApi.getUser(decodedUserData.username);
-      setCurrentUser({ ...userData, isLoggedIn: true });
+      const token = await JoblyApi.loginUser('testuser', 'password');
+      localStorage.setItem('token', token);
+      setToken(token);
+      const user = await JoblyApi.getUser('testuser', 'password');
+      setCurrentUser({ ...user, isLoggedIn: true });
     }
     getDefaultUser();
   }, []);
