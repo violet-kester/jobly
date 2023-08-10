@@ -29,7 +29,10 @@ function Homepage() {
 
       <GlassBox>
         <Box sx={{
-          paddingBottom: '24px',
+          paddingBottom: {
+            xs: '12px',
+            md: '24px',
+          },
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -78,7 +81,11 @@ function Homepage() {
       <Box m={2}>
         {
           localStorage.getItem('token') &&
-          <StyledTypography variant='h5'>
+          <StyledTypography variant='h5' sx={{
+            [theme.breakpoints.down('sm')]: {
+              fontSize: '1.25rem',
+            },
+          }}>
             Welcome back, <b>{user.user.username}</b>!
           </StyledTypography>
         }
