@@ -1,55 +1,58 @@
-import { useState } from 'react';
-import "./SearchForm.css";
+import { useForm } from 'react-hook-form';
+import {
+  Stack,
+  TextField,
+} from '@mui/material';
+import { Search } from '@mui/icons-material';
+import StyledButton from './Button/Button';
 
-/** SearchForm.
+/** SearchForm ----------------------------------------------------
  *
  * Props:
- * - handleSearch
- * - message
+ * - handleSearch: search function to be called in App component
+ * - message: search button text
  *
  * State: formData
  *
+ * Component hierarchy:
  * [CompanyList, JobList] -> SearchForm
+ *
  */
 
-
-
 function SearchForm({ handleSearch, message }) {
-  const [formData, setFormData] = useState({ input: '' });
+  const {
+    handleSubmit,
+    register,
+  } = useForm('');
 
-  /** Detects change in form input, and updates formData */
-  function handleChange(evt) {
-    const value = evt.target.value;
-
-    setFormData(currData => {
-      currData.input = value;
-      return { ...currData };
-    });
-  }
-
-  /** Calls handleSearch in parent component, and clears formData*/
-  async function handleSubmit(evt) {
-    evt.preventDefault();
-    await handleSearch(formData.input);
-    // setFormData({ input: '' });
+  async function onSubmit(data) {
+    console.log("data:", data.searchTerm)
+    await handleSearch(data.searchTerm);
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          name='SearchForm-input'
-          onChange={handleChange}
-          placeholder="Search"
-          value={formData.input}>
-        </input>
-        <input
-          className='SearchForm-submit'
-          type='submit'
-          value={message}>
-        </input>
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <Stack direction='row' spacing={2} m={2} justifyContent='center'>
+
+          <TextField
+            type='text'
+            placeholder="Search"
+            {...register('searchTerm')}
+          />
+          <StyledButton
+            variant='contained'
+            type='submit'
+            size='large'
+            startIcon={<Search />}
+            disableElevation
+          >
+            {message}
+          </StyledButton>
+
+        </Stack>
       </form>
-    </div>
+    </>
   );
 }
 
