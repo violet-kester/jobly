@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import JoblyApi from "../api";
 import SearchForm from "./SearchForm";
 import JobCardList from "./JobCardList";
+import StyledTypography from "./Typography/Typography";
 
 /** JobList for information on all jobs
  *
@@ -31,7 +32,6 @@ function JobList() {
 
   /** Show all jobs on initial render */
   useEffect(function getJobsFromAPI() {
-    // try {
     async function waitForJobs() {
       const result = await JoblyApi.getJobs();
       setJobs({
@@ -41,13 +41,6 @@ function JobList() {
       });
     }
     waitForJobs();
-    // } catch (error) {
-    //   setJobs({
-    //     data: null,
-    //     isLoading: false,
-    //     errors: error
-    //   });
-    // }}
   }, []);
 
   /** Search db for job by title */
@@ -83,12 +76,14 @@ function JobList() {
   }
 
   if (jobs.isLoading) {
-    return <i>Loading companies...</i>;
+    return <StyledTypography variant='h6'>
+      Loading jobs...
+    </StyledTypography>;
   }
 
   return (
     <div className='JobList'>
-      <SearchForm handleSearch={handleJobSearch} message="Search Jobs!" />
+      <SearchForm handleSearch={handleJobSearch} message="Search Jobs" />
       {jobs.errors !== null
         ? jobs.errors
         : <JobCardList jobs={jobs.data} />
