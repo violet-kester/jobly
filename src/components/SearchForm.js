@@ -33,21 +33,31 @@ function SearchForm({ handleSearch, message }) {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Stack direction='row' spacing={2} m={2} justifyContent='center'>
+        <Stack
+        direction='row'
+        spacing={2}
+        justifyContent='center'
+        sx={{
+          width: {
+            xs: '350px',
+            md: '600px',
+          },
+          margin: '16px auto',
+        }}>
 
           <TextField
             type='text'
-            placeholder="Search"
+            placeholder={message}
+            size='small'
             {...register('searchTerm')}
           />
           <StyledButton
             variant='contained'
             type='submit'
-            size='large'
             startIcon={<Search />}
             disableElevation
           >
-            {message}
+            Search
           </StyledButton>
 
         </Stack>

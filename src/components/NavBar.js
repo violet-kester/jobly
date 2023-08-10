@@ -9,6 +9,8 @@ import {
   styled,
   Toolbar,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
 import {
   MapsHomeWork,
@@ -20,7 +22,10 @@ import StyledButton from './Button/Button';
 
 const StyledAppBar = styled(AppBar)({
   width: '100%',
-  padding: '4px',
+  padding: {
+    xs:'0',
+    md:'12px',
+  },
   marginBottom: '16px',
   backgroundColor: 'rgba(165, 235, 200, 0.4)',
   backdropFilter: 'blur(10px)',
@@ -59,6 +64,7 @@ const ButtonGroup = styled(Stack)(({ theme }) => ({
 
 function NavBar({ logout }) {
   const { user } = useContext(userContext);
+  const theme = useTheme();
 
   return (
     <StyledAppBar position='sticky'>
@@ -81,6 +87,9 @@ function NavBar({ logout }) {
               color: (theme) => theme.palette.primary.main,
               marginLeft: '12px',
               letterSpacing: '3px',
+              [theme.breakpoints.down('sm')]: {
+                fontSize: '1.5rem',
+              }
             }}>
               Jobly
             </Typography>
@@ -116,10 +125,20 @@ function NavBar({ logout }) {
           <Box>
 
             <IconGroup direction='row' spacing={2}>
-              <IconButton component={NavLink} to='/companies' color='primary'>
+              <IconButton
+                component={NavLink}
+                to='/companies'
+                color='primary'
+                size='small'
+              >
                 <MapsHomeWork />
               </IconButton>
-              <IconButton component={NavLink} to='/jobs' color='primary'>
+              <IconButton
+                component={NavLink}
+                to='/jobs'
+                color='primary'
+                size='small'
+              >
                 <Work />
               </IconButton>
               <StyledButton

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import userContext from '../userContext';
 import { Link } from 'react-router-dom';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography, useTheme } from '@mui/material';
 import GlassBox from './Box/Box';
 import StyledButton from './Button/Button';
 import StyledTypography from './Typography/Typography';
@@ -17,6 +17,7 @@ import StyledTypography from './Typography/Typography';
 
 function Homepage() {
   const user = useContext(userContext);
+  const theme = useTheme();
 
   return (
     <Box sx={{
@@ -39,9 +40,9 @@ function Homepage() {
             component='img'
             sx={{
               maxWidth: {
-                xs: '60vw',
-                sm: '50vw',
-                md: '40vw',
+                xs: '50vw',
+                sm: '40vw',
+                md: '30vw',
               },
             }}
             alt='Jobly logo'
@@ -49,10 +50,24 @@ function Homepage() {
             m={2}
           />
           <Box m={2}>
-            <Typography variant='h1' sx={{ letterSpacing: '4px' }}>
+            <Typography
+              variant='h1'
+              sx={{
+                letterSpacing: '4px',
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: '4rem',
+                },
+              }}>
               Jobly
             </Typography>
-            <StyledTypography variant='h4' sx={{ fontStyle: 'italic' }}>
+            <StyledTypography
+              variant='h4'
+              sx={{
+                fontStyle: 'italic',
+                [theme.breakpoints.down('sm')]: {
+                  fontSize: '2rem',
+                },
+              }}>
               Find your dream job in minutes.
             </StyledTypography>
           </Box>
