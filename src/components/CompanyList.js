@@ -87,7 +87,7 @@ function CompanyList() {
   return (
     <div className='CompanyList'>
 
-      <SearchForm handleSearch={handleCompanySearch} message='Search Companies' />
+      <SearchForm handleSearch={handleCompanySearch} message='Search companies' />
 
       {companies.errors !== null
         ? companies.errors

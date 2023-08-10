@@ -83,7 +83,7 @@ function JobList() {
 
   return (
     <div className='JobList'>
-      <SearchForm handleSearch={handleJobSearch} message="Search Jobs" />
+      <SearchForm handleSearch={handleJobSearch} message="Search jobs" />
       {jobs.errors !== null
         ? jobs.errors
         : <JobCardList jobs={jobs.data} />
