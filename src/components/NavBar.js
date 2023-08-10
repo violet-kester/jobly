@@ -9,7 +9,6 @@ import {
   styled,
   Toolbar,
   Typography,
-  useMediaQuery,
   useTheme,
 } from '@mui/material';
 import {
