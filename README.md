@@ -6,7 +6,7 @@
   </a>
   <h1>Jobly</h1>
   <p>
-    Browse jobs by title or company.
+    <i>Browse jobs by title or company.</i>
   </p>
   <p>
     <a href='https://violetkester-jobly.surge.sh' target='_blank'>View Demo</a>
