@@ -76,7 +76,7 @@
 
 <div align='center'>
   <h3>Images</h3>
-  <hr/><br/>
+  <hr/>
   <div class='images-container'>
     <img src='/public/screenshots/jobly-screenshot-1.jpg' alt='Jobly screenshot 1'>
     <img src='/public/screenshots/jobly-screenshot-2.jpg' alt='Jobly screenshot 2'>
