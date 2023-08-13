@@ -19,7 +19,7 @@
 
 <div>
   <h3>About</h3>
-  <hr/><br/>
+  <hr/>
   <p>
     The React + Material UI frontend repository for Jobly.<br/>
     Jobly is a responsive, full-stack single-page web application for searching jobs and companies in a database.<br/>
@@ -29,7 +29,7 @@
     • User authentication implemented with JSON Web Tokens.</br>
   </p>
   <h3>Log in</h3>
-  <hr/><br/>
+  <hr/>
   <p>
     <code>username: testuser</code><br />
     <code>password: password</code>
@@ -65,7 +65,7 @@
   <p>
   </p>
     In your <code>jobly/jobly-backend</code> directory,</br>
-    Run <code>npm start</code> to start the backend server on port 3001.
+    Run <code>node server.js</code> or <code>nodemon server.js</code> to start the backend server on port 3001.
   </p>
   <p>
     Open the app in your browser at <a href='http://localhost:3000'>http://localhost:3000</a>.
