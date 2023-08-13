@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
+const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:3001';
 
 /** JoblyApi
  *
@@ -8,22 +8,22 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
  */
 
 class JoblyApi {
-  static token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI" +
-    "6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY5MTQ3MDU2Mn0." +
-    "3ZukA6FA0tHkzIdrJdsmxrxwZiF7xwzomqL5pkMBql8";
+  static token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI' +
+    '6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTY5MTQ3MDU2Mn0.' +
+    '3ZukA6FA0tHkzIdrJdsmxrxwZiF7xwzomqL5pkMBql8';
 
-  static async request(endpoint, data = {}, method = "get") {
-    console.debug("API Call:", endpoint, data, method);
+  static async request(endpoint, data = {}, method = 'get') {
+    console.debug('API call:', endpoint, data, method);
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${JoblyApi.token}` };
-    const params = (method === "get")
+    const params = (method === 'get')
       ? data
       : {};
 
     try {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
-      console.error("API Error:", err.response);
+      console.error('API error:', err.response);
       let message = err.response.data.error.message;
       throw Array.isArray(message) ? message : [message];
     }
@@ -37,7 +37,7 @@ class JoblyApi {
     let res = await this.request(
       'auth/token/',
       { username, password },
-      "post"
+      'post'
     );
     this.token = res.token;
     return res.token;
@@ -101,7 +101,7 @@ class JoblyApi {
     let res = await this.request(
       'auth/register/',
       userData,
-      "post"
+      'post'
     );
     this.token = res.token;
 
