@@ -31,9 +31,7 @@ const StyledContainer = styled(Container)({
   backgroundColor: 'rgba(165, 235, 200, .5)',
 });
 
-/** Jobly App
- *
- * Props: N/A
+/** Jobly App -----------------------------------------------------
  *
  * State:
  * - currentUser:
@@ -47,7 +45,9 @@ const StyledContainer = styled(Container)({
  *   isAdmin: false,
  * }
  * - token: string token
+ * - error: API error message
  *
+ * Component hierarchy:
  * App -> [NavBar, RoutesList]
  */
 
@@ -143,10 +143,10 @@ function App() {
           <StyledContainer>
             <NavBar logout={logout} />
             <RoutesList
-            login={login}
-            signup={signup}
-            error={error}
-            setError={setError} />
+              login={login}
+              signup={signup}
+              error={error}
+              setError={setError} />
           </StyledContainer>
         </Background>
       </userContext.Provider>
