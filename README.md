@@ -44,14 +44,14 @@
   </p>
     <h5>2. Installing dependencies</h5>
   <p>
-    In the both directories, run <code>npm install</code> to install all dependencies.
+    In front and backend directories, run <code>npm install</code> to install dependencies.
   </p>
   <h5>
     3. Seeding the database
   </h5>
   <p>
     In your <code>jobly/jobly-backend</code> directory,
-    create and seed the database:<br/><br/>
+    create and seed the database:<br/>
     <code>createdb jobly</code><br/>
     <code>cd jobly-backend</code><br/>
     <code>psql jobly.sql</code><br/>
@@ -65,7 +65,7 @@
   <p>
   </p>
     In your <code>jobly/jobly-backend</code> directory,</br>
-    Run <code>node server.js</code> or <code>nodemon server.js</code> to start the backend server on port 3001.
+    run <code>node server.js</code> or <code>nodemon server.js</code> to start the backend server on port 3001.
   </p>
   <p>
     Open the app in your browser at <a href='http://localhost:3000'>http://localhost:3000</a>.
