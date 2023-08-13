@@ -54,6 +54,7 @@ const StyledContainer = styled(Container)({
 function App() {
   const [currentUser, setCurrentUser] = useState(DEFAULT_USER);
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   // login default user `testuser` on mount
@@ -87,11 +88,17 @@ function App() {
   /** User login -------------------------------------------------- */
 
   async function login(username, password) {
-    const token = await JoblyApi.loginUser(username, password);
-    localStorage.setItem('token', token);
-    setToken(token);
-    const user = await JoblyApi.getUser(username, password);
-    setCurrentUser({ ...user, isLoggedIn: true });
+    try {
+      const token = await JoblyApi.loginUser(username, password);
+      localStorage.setItem('token', token);
+      setToken(token);
+      const user = await JoblyApi.getUser(username, password);
+      setCurrentUser({ ...user, isLoggedIn: true });
+      setError(null);
+    } catch (err) {
+      setError(err);
+      throw err;
+    }
   }
 
   /** User logout ------------------------------------------------- */
@@ -112,10 +119,15 @@ function App() {
    * { username, password, firstName, lastName, email }
    */
   async function signup(user) {
-    const token = await JoblyApi.registerUser(user);
-    setToken(token);
-    setCurrentUser(currUser => ({ ...user, isLoggedIn: true }));
-    navigate('/');
+    try {
+      const token = await JoblyApi.registerUser(user);
+      setToken(token);
+      setCurrentUser(currUser => ({ ...user, isLoggedIn: true }));
+      setError(null);
+    } catch (err) {
+      setError(err);
+      throw err;
+    }
   }
 
   return (
@@ -130,7 +142,11 @@ function App() {
         <Background>
           <StyledContainer>
             <NavBar logout={logout} />
-            <RoutesList login={login} signup={signup} /** update={update} */ />
+            <RoutesList
+            login={login}
+            signup={signup}
+            error={error}
+            setError={setError} />
           </StyledContainer>
         </Background>
       </userContext.Provider>
