@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import {
   Routes,
   Route,
@@ -15,7 +16,8 @@ import SignupForm from './SignupForm';
  * Props:
  * - login: login function to be called in App component
  * - signup: signup function to be called in App component
- * - update: update function to be called in App component
+ * - error: API error message
+ * - setError: function for setting error state in App component
  *
  * Component hierarchy:
  * App -> RoutesList -> [
@@ -30,7 +32,8 @@ import SignupForm from './SignupForm';
  *
  */
 
-function RoutesList({ login, signup, update }) {
+function RoutesList({ login, signup, error, setError }) {
+
   return (
     <Routes>
       <Route
@@ -55,12 +58,21 @@ function RoutesList({ login, signup, update }) {
 
       <Route
         path="/login"
-        element={<LoginForm login={login} />}
+        element={<LoginForm
+          login={login}
+          error={error}
+          setError={setError}
+        />}
       />
 
       <Route
         path="/signup"
-        element={<SignupForm signup={signup} login={login} />}
+        element={<SignupForm
+          signup={signup}
+          login={login}
+          error={error}
+          setError={setError}
+        />}
       />
 
       {/* <Route

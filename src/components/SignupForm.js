@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import {
   InputAdornment,
@@ -14,6 +15,7 @@ import {
 } from '@mui/icons-material';
 import GlassBox from './Box/Box';
 import StyledButton from './Button/Button';
+import StyledTypography from './Typography/Typography';
 
 const DEFAULT_FORM_DATA = {
   username: '',
@@ -28,6 +30,8 @@ const DEFAULT_FORM_DATA = {
  * Props:
  * - signup: signup function to be called App component
  * - login: login function to be called in App component
+ * - error: API error message
+ * - setError: function for setting error state in App component
  *
  * State:
  * - showPassword: boolean
@@ -37,22 +41,35 @@ const DEFAULT_FORM_DATA = {
  *
  */
 
-function SignupForm({ signup, login }) {
+function SignupForm({ signup, login, error, setError }) {
   const [showPassword, setShowPassword] = useState(false);
   const {
     formState: { errors },
     handleSubmit,
     register,
   } = useForm(DEFAULT_FORM_DATA);
+  const navigate = useNavigate();
 
+  // reset error state when component mounts
+  useEffect(() => {
+    setError(null);
+  }, [setError]);
+
+  // show and hide password
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (evt) => {
     evt.preventDefault();
   };
 
+  // handle form submission
   async function onSubmit(data) {
-    await signup(data);
-    await login(data.username, data.password);
+    try {
+      await signup(data);
+      await login(data.username, data.password);
+      navigate('/');
+    } catch (err) {
+      console.debug('Signup error: ', err);
+    }
   }
 
   return (
@@ -114,14 +131,22 @@ function SignupForm({ signup, login }) {
           <TextField
             label='First name'
             type='text'
-            {...register('firstName')}
+            {...register('firstName', {
+              required: 'First name required'
+            })}
+            error={!!errors.firstName}
+            helperText={errors.firstName?.message}
             fullWidth
           />
 
           <TextField
             label='Last name'
             type='text'
-            {...register('lastName')}
+            {...register('lastName', {
+              required: 'Last name required'
+            })}
+            error={!!errors.lastName}
+            helperText={errors.lastName?.message}
             fullWidth
           />
 
@@ -129,7 +154,7 @@ function SignupForm({ signup, login }) {
             label='Email'
             type='email'
             {...register('email', {
-              required: 'Invalid username'
+              required: 'Invalid email'
             })}
             error={!!errors.email}
             helperText={errors.email?.message}
@@ -150,6 +175,10 @@ function SignupForm({ signup, login }) {
           >
             Sign up
           </StyledButton>
+
+          {error && (
+            <StyledTypography color='error'>{error[0]}</StyledTypography>
+          )}
 
         </Stack>
       </form>
