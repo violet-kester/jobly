@@ -58,7 +58,16 @@ function SignupForm({ signup, login }) {
   return (
     <GlassBox>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Stack spacing={3} width={400} sx={{ margin: '0 auto' }}>
+        <Stack
+          spacing={3}
+          width={{
+            xs: 250,
+            sm: 400,
+          }}
+          sx={{
+            margin: '0 auto',
+            alignItems: 'center',
+          }}>
 
           <TextField
             label='Username'
@@ -75,6 +84,7 @@ function SignupForm({ signup, login }) {
                 </InputAdornment>
               ),
             }}
+            fullWidth
           />
 
           <TextField
@@ -98,18 +108,21 @@ function SignupForm({ signup, login }) {
                 </InputAdornment>
               ),
             }}
+            fullWidth
           />
 
           <TextField
             label='First name'
             type='text'
             {...register('firstName')}
+            fullWidth
           />
 
           <TextField
             label='Last name'
             type='text'
             {...register('lastName')}
+            fullWidth
           />
 
           <TextField
@@ -127,12 +140,12 @@ function SignupForm({ signup, login }) {
                 </InputAdornment>
               ),
             }}
+            fullWidth
           />
 
           <StyledButton
             variant='contained'
             type='submit'
-            size='large'
             disableElevation
           >
             Sign up

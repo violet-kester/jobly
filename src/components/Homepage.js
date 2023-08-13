@@ -43,9 +43,9 @@ function Homepage() {
             component='img'
             sx={{
               maxWidth: {
-                xs: '50vw',
-                sm: '40vw',
-                md: '30vw',
+                xs: '40vw',
+                sm: '30vw',
+                md: '20vw',
               },
             }}
             alt='Jobly logo'
@@ -91,7 +91,13 @@ function Homepage() {
         }
         {
           !localStorage.getItem('token') &&
-          <Stack direction='row' justifyContent='center' spacing={2}>
+          <Stack
+          direction='row'
+          justifyContent='center'
+          spacing={{
+            xs: 1,
+            sm: 2
+          }}>
             <StyledButton
               component={Link}
               to='/login'

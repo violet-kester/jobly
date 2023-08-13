@@ -55,7 +55,17 @@ function LoginForm({ login }) {
   return (
     <GlassBox>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <Stack spacing={3} width={400} sx={{ margin: '0 auto' }}>
+        <Stack
+          spacing={3}
+          width={{
+            xs: 250,
+            sm: 400,
+          }}
+          sx={{
+            margin: '0 auto',
+            alignItems: 'center',
+          }}
+        >
 
           <TextField
             label='Username'
@@ -72,6 +82,7 @@ function LoginForm({ login }) {
                 </InputAdornment>
               ),
             }}
+            fullWidth
           />
 
           <TextField
@@ -95,6 +106,7 @@ function LoginForm({ login }) {
                 </InputAdornment>
               ),
             }}
+            fullWidth
           />
 
           <StyledButton

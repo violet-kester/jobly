@@ -98,7 +98,10 @@ function NavBar({ logout }) {
         {/* unprotected routes */}
 
         {!localStorage.getItem('token') &&
-          <Stack direction='row' spacing={2}>
+          <Stack direction='row' spacing={{
+            xs: 1,
+            sm: 2
+          }}>
 
             <StyledButton
               component={NavLink}
