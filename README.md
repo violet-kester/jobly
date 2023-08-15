@@ -2,11 +2,11 @@
 
 <div align='center'>
   <a href='https://violetkester-jobly.surge.sh'>
-    <img src='/public/logos/jobly-logo.png' alt='Logo'>
+    <img src='/public/logos/jobly-logo.png' width='75px' alt='Logo'>
   </a>
   <h1>Jobly</h1>
   <p>
-    Browse jobs by title or company.
+    <i>Browse jobs by title or company.</i>
   </p>
   <p>
     <a href='https://violetkester-jobly.surge.sh' target='_blank'>View Demo</a>
@@ -21,12 +21,26 @@
   <h3>About</h3>
   <hr/>
   <p>
-    The React + Material UI frontend repository for Jobly.<br/>
-    Jobly is a responsive, full-stack single-page web application for searching jobs and companies in a database.<br/>
+    Jobly is a responsive, full-stack single-page web application for searching jobs and companies in a database.
   </p>
   <p>
-    • Makes RESTful API calls to the the Node/Express/PostgreSQL backend.</br>
-    • User authentication implemented with JSON Web Tokens.</br>
+    <b>Frontend developed with:</b></br></br>
+    · JavaScript<br/>
+    · React<br/>
+    · Material UI
+  </p>
+  <p>
+    <i>Makes RESTful API calls to the backend.</i>
+  </p>
+  <p>
+    <b>Backend developed with:</b></br></br>
+    · JavaScript<br/>
+    · Node<br/>
+    · Express<br/>
+    · PostgreSQL
+  </p>
+  <p>
+    <i>User authentication implemented with JSON Web Tokens.</i>
   </p>
   <h3>Log in</h3>
   <hr/>
@@ -36,19 +50,19 @@
   </p>
   <h3>Running the application</h3>
   <hr/>
-  <h5>1. Cloning repositories</h5>
+  <h4>1. Clone the front and backend repositories.</h4>
   <p>
-    In your project directory, clone the front and backend repositories:<br/>
+    In your project directory:<br/>
     <code>git clone https://github.com/violet-kester/jobly-frontend.git</code><br/>
     <code>git clone https://github.com/violet-kester/jobly-backend.git</code>
   </p>
-    <h5>2. Installing dependencies</h5>
+    <h4>2. Install dependencies.</h4>
   <p>
-    In the both directories, run <code>npm install</code> to install all dependencies.
+    In both front and backend directories, run <code>npm install</code> to install all dependencies.
   </p>
-  <h5>
-    3. Seeding the database
-  </h5>
+  <h4>
+    3. Create and seed the database.
+  </h4>
   <p>
     In your <code>jobly/jobly-backend</code> directory,
     create and seed the database:<br/><br/>
@@ -56,9 +70,9 @@
     <code>cd jobly-backend</code><br/>
     <code>psql jobly.sql</code><br/>
   <p>
-  <h5>
-    4. Starting servers
-  </h5>
+  <h4>
+    4. Start the servers.
+  </h4>
   <p>
     In your <code>jobly/jobly-frontend</code> directory,</br>
     run <code>npm start</code> to start the frontend development server.
