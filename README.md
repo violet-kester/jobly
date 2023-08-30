@@ -13,8 +13,6 @@
   </p>
 </div>
 
-<hr/>
-
 <!-- content -->
 
 <div>
