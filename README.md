@@ -13,8 +13,6 @@
   </p>
 </div>
 
-<hr/>
-
 <!-- content -->
 
 <div>
@@ -53,7 +51,7 @@
   <h4>1. Clone the front and backend repositories.</h4>
   <p>
     In your project directory:<br/>
-    <code>git clone https://github.com/violet-kester/jobly-frontend.git</code><br/>
+    <code>git clone https://github.com/violet-kester/jobly.git</code><br/>
     <code>git clone https://github.com/violet-kester/jobly-backend.git</code>
   </p>
     <h4>2. Install dependencies.</h4>
@@ -74,11 +72,11 @@
     4. Start the servers.
   </h4>
   <p>
-    In your <code>jobly/jobly-frontend</code> directory,</br>
+    In your frontend <code>jobly/jobly</code> directory,</br>
     run <code>npm start</code> to start the frontend development server.
   <p>
   </p>
-    In your <code>jobly/jobly-backend</code> directory,</br>
+    In your backend <code>jobly/jobly-backend</code> directory,</br>
     run <code>node server.js</code> or <code>nodemon server.js</code> to start the backend server on port 3001.
   </p>
   <p>
