@@ -89,7 +89,7 @@
 <!-- images  -->
 
 <div align='center'>
-  <h3>Images</h3>
+  <h3>Image Gallery</h3>
   <hr/>
   <div class='images-container'>
     <img src='/public/screenshots/jobly-screenshot-1.jpg' alt='Jobly screenshot 1'>
