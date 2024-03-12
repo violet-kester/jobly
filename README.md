@@ -52,7 +52,7 @@
   <p>
     In your project directory:<br/>
     <code>git clone https://github.com/violet-kester/jobly.git</code><br/>
-    <code>git clone https://github.com/violet-kester/jobly-backend.git</code>
+    <code>git clone https://github.com/violet-kester/express-jobly</code>
   </p>
     <h4>2. Install dependencies.</h4>
   <p>
