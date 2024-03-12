@@ -62,10 +62,10 @@
     3. Create and seed the database.
   </h4>
   <p>
-    In your <code>jobly/jobly-backend</code> directory,
+    In your <code>jobly/express-jobly</code> directory,
     create and seed the database:<br/>
     <code>createdb jobly</code><br/>
-    <code>cd jobly-backend</code><br/>
+    <code>cd express-jobly</code><br/>
     <code>psql jobly.sql</code><br/>
   <p>
   <h4>
@@ -76,7 +76,7 @@
     run <code>npm start</code> to start the frontend development server.
   <p>
   </p>
-    In your backend <code>jobly/jobly-backend</code> directory,</br>
+    In your backend <code>jobly/express-jobly</code> directory,</br>
     run <code>node server.js</code> or <code>nodemon server.js</code> to start the backend server on port 3001.
   </p>
   <p>
